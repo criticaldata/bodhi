@@ -80,6 +80,38 @@ document.querySelectorAll('.module-card, .flow-step, .problem-card, .publication
     observer.observe(element);
 });
 
+// Animated section titles — split into letters on load, reveal on scroll
+document.querySelectorAll('.section-title').forEach(title => {
+    const text = title.textContent;
+    title.innerHTML = '';
+    let charIndex = 0;
+    text.split(' ').forEach((word, wordIndex, arr) => {
+        const wordSpan = document.createElement('span');
+        wordSpan.style.display = 'inline-block';
+        wordSpan.style.whiteSpace = 'nowrap';
+        [...word].forEach(char => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.className = 'title-char';
+            span.style.setProperty('--ci', charIndex++);
+            wordSpan.appendChild(span);
+        });
+        title.appendChild(wordSpan);
+        if (wordIndex < arr.length - 1) title.appendChild(document.createTextNode(' '));
+    });
+});
+
+const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            titleObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.section-title').forEach(title => titleObserver.observe(title));
+
 // Add scroll effect to navbar
 let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
@@ -110,19 +142,3 @@ navToggle.addEventListener('click', () => {
     }
 });
 
-// Contact form handler
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const name = document.getElementById('contactName').value;
-        const email = document.getElementById('contactEmail').value;
-        const subject = document.getElementById('contactSubject').value;
-        const message = document.getElementById('contactMessage').value;
-        const r = ['\x6c\x63\x65\x6c\x69', '\x6d\x6c\x61\x6e\x67\x65\x32', '\x73\x65\x62\x61\x73\x6d\x6f\x73'];
-        const d = '\x6d\x69\x74\x2e\x65\x64\x75';
-        const to = r.map(function(n) { return n + '@' + d; }).join(',');
-        const body = 'From: ' + name + ' (' + email + ')\n\n' + message;
-        window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    });
-}
