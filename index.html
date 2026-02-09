@@ -3,12 +3,1260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BODHI Framework | Curiosity Driven Clinical AI</title>
+    <title>BODHI | Systems Design for Epistemic Agency in Clinical AI</title>
     <link rel="icon" type="image/png" href="assets/fav.png">
-    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   DESIGN TOKENS
+   ══════════════════════════════════════ */
+:root {
+    --c-ink: #0c1222;
+    --c-ink-soft: #2d3a50;
+    --c-ink-muted: #64748b;
+    --c-ink-faint: #94a3b8;
+    --c-surface: #ffffff;
+    --c-surface-warm: #faf8f5;
+    --c-surface-cool: #f1f5f9;
+    --c-border: #e2e8f0;
+    --c-border-subtle: #f1eeeb;
+    --c-accent: #b44230;
+    --c-accent-hover: #943521;
+    --c-accent-soft: #fdf0ed;
+    --c-accent-glow: rgba(180, 66, 48, 0.12);
+    --c-green: #16804a;
+    --c-green-soft: #ecfdf3;
+    --c-blue: #1d5dbf;
+    --c-blue-soft: #eff6ff;
+    --c-amber: #b45f10;
+    --c-amber-soft: #fffbeb;
+    --c-purple: #6d3aaf;
+    --c-purple-soft: #faf5ff;
+
+    --f-display: 'Playfair Display', Georgia, serif;
+    --f-body: 'DM Sans', system-ui, sans-serif;
+    --f-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 24px;
+
+    --shadow-sm: 0 1px 3px rgba(12,18,34,0.04), 0 1px 2px rgba(12,18,34,0.06);
+    --shadow-md: 0 4px 16px rgba(12,18,34,0.06), 0 1px 3px rgba(12,18,34,0.04);
+    --shadow-lg: 0 12px 40px rgba(12,18,34,0.08), 0 4px 12px rgba(12,18,34,0.04);
+    --shadow-glow: 0 0 0 1px var(--c-accent-glow), 0 8px 30px var(--c-accent-glow);
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ══════════════════════════════════════
+   RESET & BASE
+   ══════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+    font-family: var(--f-body);
+    color: var(--c-ink);
+    line-height: 1.65;
+    background: var(--c-surface);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background: var(--c-accent-soft);
+    color: var(--c-accent);
+}
+
+img { max-width: 100%; display: block; }
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Reveal animation base */
+.reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════ */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.navbar.scrolled {
+    border-bottom-color: var(--c-border);
+    box-shadow: 0 1px 12px rgba(12,18,34,0.04);
+}
+
+.nav-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--c-ink);
+}
+
+.logo-icon { height: 34px; width: auto; }
+
+.brand-text {
+    font-family: var(--f-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--c-ink-muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 6px;
+    transition: color 0.25s ease, background 0.25s ease;
+}
+
+.nav-link:hover {
+    color: var(--c-ink);
+    background: var(--c-surface-cool);
+}
+
+.nav-link.active {
+    color: var(--c-accent);
+    background: var(--c-accent-soft);
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.nav-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--c-ink);
+    border-radius: 2px;
+    transition: all 0.3s var(--ease-out);
+    transform-origin: center;
+}
+
+/* ══════════════════════════════════════
+   HERO
+   ══════════════════════════════════════ */
+.hero-section {
+    margin-top: 72px;
+    padding: 6rem 0 5rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--c-surface-warm);
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(180,66,48,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 85% 75%, rgba(29,93,191,0.04) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+/* subtle dot pattern */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--c-ink-faint) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+    opacity: 0.12;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+}
+
+.hero-title {
+    font-family: var(--f-display);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--c-ink);
+    margin-bottom: 1.25rem;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+}
+
+.title-letters {
+    display: inline;
+}
+
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: letterIn 0.5s var(--ease-out) forwards;
+    animation-delay: calc(var(--i) * 0.07s + 0.2s);
+}
+
+@keyframes letterIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.title-word {
+    display: inline-block;
+    opacity: 0;
+    animation: letterIn 0.6s var(--ease-out) 0.7s forwards;
+    margin-left: 0.15em;
+}
+
+.hero-acronym {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s var(--ease-out) 0.9s forwards;
+}
+
+.hero-acronym span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--c-ink-muted);
+    letter-spacing: 0.01em;
+}
+
+.hero-acronym span strong {
+    color: var(--c-accent);
+    font-weight: 700;
+}
+
+.hero-description {
+    font-size: 1.15rem;
+    color: var(--c-ink-soft);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 2.25rem;
+    opacity: 0;
+    animation: fadeUp 0.6s var(--ease-out) 1.05s forwards;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s var(--ease-out) 1.2s forwards;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    text-decoration: none;
+    font-family: var(--f-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: var(--r-sm);
+    transition: all 0.3s var(--ease-out);
+    border: 1.5px solid transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--c-accent);
+    color: white;
+    border-color: var(--c-accent);
+}
+
+.btn-primary:hover {
+    background: var(--c-accent-hover);
+    border-color: var(--c-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--c-accent-glow);
+}
+
+.btn-secondary {
+    background: var(--c-surface);
+    color: var(--c-ink);
+    border-color: var(--c-border);
+    font-family: var(--f-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.btn-secondary:hover {
+    border-color: var(--c-ink-muted);
+    background: var(--c-surface-cool);
+    transform: translateY(-2px);
+}
+
+/* ══════════════════════════════════════
+   STATS BAR
+   ══════════════════════════════════════ */
+.stats-bar {
+    padding: 2.75rem 0;
+    background: var(--c-ink);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(180,66,48,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(29,93,191,0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    position: relative;
+    text-align: center;
+}
+
+.stats-label {
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+    position: relative;
+}
+
+.stat-item {
+    padding: 0.5rem 0;
+}
+
+.stat-value {
+    font-family: var(--f-display);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.stat-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+    margin-top: 0.35rem;
+    letter-spacing: 0.02em;
+}
+
+.stat-detail {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.2rem;
+}
+
+/* ══════════════════════════════════════
+   SHARED SECTION STYLES
+   ══════════════════════════════════════ */
+.section-title {
+    font-family: var(--f-display);
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--c-ink);
+    margin-bottom: 0.75rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+}
+
+.section-subtitle {
+    font-size: 1.05rem;
+    color: var(--c-ink-muted);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    line-height: 1.65;
+}
+
+/* ══════════════════════════════════════
+   PROBLEM SECTION
+   ══════════════════════════════════════ */
+.problem-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface);
+}
+
+.problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.problem-text h3 {
+    font-family: var(--f-display);
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--c-ink);
+    margin-bottom: 1.25rem;
+    line-height: 1.3;
+}
+
+.problem-text p {
+    font-size: 1rem;
+    color: var(--c-ink-soft);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+}
+
+.problem-highlight-link {
+    text-decoration: none;
+    display: block;
+    margin-top: 1.5rem;
+}
+
+.problem-highlight {
+    background: var(--c-accent-soft);
+    border-left: 3px solid var(--c-accent);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    transition: all 0.3s var(--ease-out);
+}
+
+.problem-highlight:hover {
+    background: #fbe8e3;
+    transform: translateX(4px);
+}
+
+.problem-highlight p {
+    color: var(--c-ink);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.highlight-cta {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--c-accent);
+}
+
+.problem-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.problem-card {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    transition: all 0.35s var(--ease-out);
+}
+
+.problem-card:hover {
+    border-color: var(--c-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.card-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.problem-card h4 {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--c-ink);
+    margin-bottom: 0.2rem;
+}
+
+.problem-card p {
+    font-size: 0.88rem;
+    color: var(--c-ink-muted);
+    line-height: 1.55;
+    margin-bottom: 0;
+}
+
+/* ══════════════════════════════════════
+   HOW IT WORKS
+   ══════════════════════════════════════ */
+.how-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface-warm);
+    position: relative;
+}
+
+.how-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--c-ink-faint) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+    opacity: 0.07;
+    pointer-events: none;
+}
+
+.how-section .container { position: relative; z-index: 1; }
+
+.principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.principle {
+    display: flex;
+    align-items: baseline;
+    gap: 2.5rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--c-border-subtle);
+    transition: all 0.35s var(--ease-out);
+}
+
+.principle:first-child {
+    border-top: 1px solid var(--c-border-subtle);
+}
+
+.principle:hover {
+    padding-left: 1rem;
+}
+
+.principle-name {
+    font-family: var(--f-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--p-color, var(--c-ink));
+    min-width: 200px;
+    flex-shrink: 0;
+    line-height: 1.3;
+}
+
+.principle-desc {
+    font-size: 1rem;
+    color: var(--c-ink-muted);
+    line-height: 1.7;
+    max-width: 560px;
+}
+
+/* ══════════════════════════════════════
+   FRAMEWORK / FIGURE
+   ══════════════════════════════════════ */
+.framework-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface);
+}
+
+.matrix-figure {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.matrix-figure a {
+    display: inline-block;
+    transition: transform 0.4s var(--ease-out);
+    border-radius: var(--r-md);
+}
+
+.matrix-figure a:hover { transform: scale(1.01); }
+
+.matrix-image {
+    max-width: 100%;
+    width: 680px;
+    height: auto;
+    border-radius: var(--r-md);
+    border: 1px solid var(--c-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.matrix-caption {
+    margin-top: 1.5rem;
+    font-size: 0.88rem;
+    color: var(--c-ink-muted);
+    line-height: 1.65;
+    text-align: left;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.caption-link {
+    color: var(--c-accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+.caption-link:hover { text-decoration: underline; }
+
+/* ══════════════════════════════════════
+   RESEARCH MODULES
+   ══════════════════════════════════════ */
+.modules-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface-cool);
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+
+.module-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
+    padding: 1.75rem;
+    transition: all 0.35s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+}
+
+.module-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+
+.module-card.mod-curiosity::before { background: var(--c-blue); }
+.module-card.mod-humility::before { background: var(--c-green); }
+.module-card.mod-creativity::before { background: var(--c-amber); }
+.module-card.mod-sycophancy::before { background: var(--c-purple); }
+
+.module-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+}
+
+.module-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.65rem;
+    gap: 0.5rem;
+}
+
+.module-card h4 {
+    font-family: var(--f-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--c-ink);
+}
+
+.module-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.badge-active {
+    background: var(--c-green-soft);
+    color: var(--c-green);
+}
+
+.badge-expanding {
+    background: var(--c-amber-soft);
+    color: var(--c-amber);
+}
+
+.module-card p {
+    color: var(--c-ink-muted);
+    line-height: 1.6;
+    font-size: 0.9rem;
+    margin-bottom: 0.85rem;
+}
+
+.module-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.module-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--c-ink-muted);
+    background: var(--c-surface-cool);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    letter-spacing: 0.01em;
+}
+
+.modules-cta {
+    text-align: center;
+    padding: 2rem 2.5rem;
+    background: var(--c-surface);
+    border: 1.5px dashed var(--c-border);
+    border-radius: var(--r-lg);
+}
+
+.modules-cta p {
+    font-size: 1rem;
+    color: var(--c-ink-soft);
+    margin-bottom: 1.25rem;
+}
+
+/* ══════════════════════════════════════
+   PUBLICATIONS
+   ══════════════════════════════════════ */
+.publications-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface);
+}
+
+.publications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.publication-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    padding: 1.75rem 2rem;
+    transition: all 0.3s var(--ease-out);
+    position: relative;
+}
+
+.publication-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--c-accent);
+    transform: translateY(-1px);
+}
+
+.pub-badge {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    margin-bottom: 0.65rem;
+}
+
+.pub-badge.published {
+    background: var(--c-green-soft);
+    color: var(--c-green);
+}
+
+.pub-badge.under-review {
+    background: var(--c-amber-soft);
+    color: var(--c-amber);
+}
+
+.pub-badge.preprint {
+    background: var(--c-blue-soft);
+    color: var(--c-blue);
+}
+
+.pub-title {
+    font-family: var(--f-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--c-ink);
+    margin-bottom: 0.45rem;
+    line-height: 1.35;
+}
+
+.pub-authors {
+    font-size: 0.82rem;
+    color: var(--c-ink-muted);
+    margin-bottom: 0.3rem;
+    line-height: 1.5;
+}
+
+.pub-venue {
+    font-size: 0.88rem;
+    color: var(--c-ink-soft);
+    font-weight: 600;
+}
+
+.pub-year {
+    font-size: 0.8rem;
+    color: var(--c-ink-faint);
+    margin-bottom: 0.65rem;
+}
+
+.pub-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.pub-link {
+    color: var(--c-accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.pub-link:hover {
+    color: var(--c-accent-hover);
+    text-decoration: underline;
+}
+
+/* ══════════════════════════════════════
+   TEAM
+   ══════════════════════════════════════ */
+.team-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface-warm);
+    position: relative;
+}
+
+.team-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--c-ink-faint) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.team-section .container { position: relative; z-index: 1; }
+
+.team-intro {
+    font-size: 1rem;
+    color: var(--c-ink-muted);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+
+.team-category {
+    margin-bottom: 3rem;
+}
+
+.team-category-title {
+    font-family: var(--f-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--c-ink);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--c-border);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.85rem;
+}
+
+.team-member {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-sm);
+    padding: 1.15rem 1.35rem;
+    transition: all 0.3s var(--ease-out);
+}
+
+.team-member.highlighted {
+    border-color: var(--c-accent);
+    background: var(--c-accent-soft);
+}
+
+.team-member:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.member-name {
+    font-family: var(--f-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--c-ink);
+    margin-bottom: 0.15rem;
+}
+
+.member-role {
+    color: var(--c-accent);
+    font-weight: 600;
+    font-size: 0.78rem;
+    margin-bottom: 0.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.member-affiliation {
+    color: var(--c-ink-muted);
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.member-email {
+    color: var(--c-accent);
+    font-size: 0.78rem;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0.35rem;
+    transition: color 0.2s ease;
+}
+
+.member-email:hover { text-decoration: underline; }
+
+/* Logo strip */
+.logos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+    padding: 2rem 0;
+}
+
+.logo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0.55;
+    filter: grayscale(100%);
+}
+
+.logo-item:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.institution-logo {
+    height: 38px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+.institution-logo.logo-invert {
+    filter: brightness(0) invert(0);
+}
+
+/* ══════════════════════════════════════
+   CODE & RESOURCES
+   ══════════════════════════════════════ */
+.code-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface);
+}
+
+.code-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.code-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
+    padding: 2rem;
+    transition: all 0.35s var(--ease-out);
+}
+
+.code-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+}
+
+.code-icon {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.code-card h3 {
+    font-family: var(--f-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--c-ink);
+    margin-bottom: 0.65rem;
+}
+
+.code-card p {
+    color: var(--c-ink-muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+}
+
+.code-command {
+    background: var(--c-ink);
+    color: #6ee7b7;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-family: var(--f-mono);
+    font-size: 0.82rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+}
+
+.code-link {
+    color: var(--c-accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    transition: color 0.2s ease;
+}
+
+.code-link:hover {
+    color: var(--c-accent-hover);
+    text-decoration: underline;
+}
+
+/* ══════════════════════════════════════
+   CONTACT
+   ══════════════════════════════════════ */
+.contact-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface-cool);
+}
+
+.contact-emails {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.contact-email-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.5rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    text-decoration: none;
+    transition: all 0.3s var(--ease-out);
+}
+
+.contact-email-card:hover {
+    border-color: var(--c-accent);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-3px);
+}
+
+.contact-name {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--c-ink);
+}
+
+.contact-addr {
+    font-size: 0.85rem;
+    color: var(--c-accent);
+    font-weight: 500;
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════ */
+.footer {
+    background: var(--c-ink);
+    color: white;
+    padding: 2.5rem 0 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(180,66,48,0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.footer .container { position: relative; z-index: 1; }
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.footer-logo {
+    height: 32px;
+    width: auto;
+    opacity: 0.85;
+}
+
+.footer-title {
+    font-family: var(--f-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.footer-subtitle {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.45);
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.75rem;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover { color: white; }
+
+.footer-bottom {
+    text-align: center;
+    color: rgba(255,255,255,0.35);
+    font-size: 0.78rem;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .code-grid { grid-template-columns: 1fr; }
+    .contact-emails { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 72px; left: 0; right: 0;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        padding: 1.5rem 2rem;
+        gap: 0.25rem;
+        border-bottom: 1px solid var(--c-border);
+        transform: translateY(-120%);
+        opacity: 0;
+        transition: all 0.35s var(--ease-out);
+    }
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    .nav-toggle { display: flex; }
+    .nav-link { padding: 0.75rem 1rem; width: 100%; border-radius: var(--r-sm); }
+
+    .hero-title { font-size: 2.75rem; }
+    .section-title { font-size: 2rem; }
+
+    .principle { flex-direction: column; gap: 0.5rem; }
+    .principle-name { min-width: 0; }
+
+    .problem-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .modules-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .team-grid { grid-template-columns: 1fr; }
+
+    .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .footer-links { flex-direction: column; gap: 0.75rem; }
+
+    .hero-buttons { flex-direction: column; }
+    .btn { width: 100%; max-width: 280px; justify-content: center; }
+
+    .logos-grid { gap: 1rem 1.5rem; }
+    .institution-logo { height: 30px; max-width: 90px; }
+}
+
+@media (max-width: 480px) {
+    .container { padding: 0 1.25rem; }
+    .hero-title { font-size: 2.25rem; }
+    .stat-value { font-size: 1.85rem; }
+    .stats-grid { gap: 1rem; }
+}
+</style>
 </head>
 <body>
 
@@ -26,7 +1274,7 @@
                 <a href="#team" class="nav-link">Team</a>
                 <a href="#code" class="nav-link">Code</a>
             </div>
-            <button class="nav-toggle" id="navToggle">
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -34,30 +1282,28 @@
         </div>
     </nav>
 
-    <main class="main-content">
+    <main>
 
         <!-- HERO -->
         <section class="hero-section" id="home">
             <div class="container">
-                <div class="hero-content fade-in">
+                <div class="hero-content">
                     <h1 class="hero-title">
-                        <span class="title-letters">
-                            <span class="letter" style="--i:0">B</span><span class="letter" style="--i:1">O</span><span class="letter" style="--i:2">D</span><span class="letter" style="--i:3">H</span><span class="letter" style="--i:4">I</span>
-                        </span>
+                        <span class="title-letters"><span class="letter" style="--i:0">B</span><span class="letter" style="--i:1">O</span><span class="letter" style="--i:2">D</span><span class="letter" style="--i:3">H</span><span class="letter" style="--i:4">I</span></span>
                         <span class="title-word">Framework</span>
                     </h1>
-                    <div class="hero-acronym fade-in-delay">
+                    <div class="hero-acronym">
                         <span><strong>B</strong>ridging</span>
                         <span><strong>O</strong>pen</span>
                         <span><strong>D</strong>iscerning</span>
                         <span><strong>H</strong>umble</span>
                         <span><strong>I</strong>nquiring</span>
                     </div>
-                    <p class="hero-description fade-in-delay">
-                        An open source framework that teaches medical AI to ask questions, acknowledge uncertainty, and defer to human expertise instead of pretending to know everything.
+                    <p class="hero-description">
+                        A systems design framework that reimagines medical AI as an epistemic agent: one that questions assumptions, reasons under uncertainty, and recognizes the boundaries of its own knowledge.
                     </p>
-                    <div class="hero-buttons fade-in-delay">
-                        <a href="https://doi.org/10.1371/journal.pdig.0001013" class="btn btn-primary" target="_blank">Read the Paper</a>
+                    <div class="hero-buttons">
+                        <a href="#framework" class="btn btn-primary">Explore the Framework</a>
                         <a href="https://pypi.org/project/bodhi-llm/" class="btn btn-secondary" target="_blank">pip install bodhi-llm</a>
                     </div>
                 </div>
@@ -67,23 +1313,24 @@
         <!-- STATS BAR -->
         <section class="stats-bar">
             <div class="container">
+                <div class="stats-label">Preliminary results from BODHI's prompting implementation on HealthBench Hard</div>
                 <div class="stats-grid">
-                    <div class="stat-item">
+                    <div class="stat-item reveal">
                         <div class="stat-value">+89.6pp</div>
                         <div class="stat-label">Context Seeking Improvement</div>
                         <div class="stat-detail">7.8% &rarr; 97.3% (GPT 4.1 mini)</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item reveal">
                         <div class="stat-value">+16.6pp</div>
                         <div class="stat-label">Overall Clinical Quality</div>
                         <div class="stat-detail">p &lt; 0.0001, 5 seeds</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item reveal">
                         <div class="stat-value">d = 16.38</div>
                         <div class="stat-label">Curiosity Effect Size</div>
                         <div class="stat-detail">Very large effect</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item reveal">
                         <div class="stat-value">d = 5.80</div>
                         <div class="stat-label">Humility Effect Size</div>
                         <div class="stat-detail">GPT 4.1 mini hedging</div>
@@ -95,35 +1342,35 @@
         <!-- THE PROBLEM -->
         <section class="problem-section">
             <div class="container">
-                <h2 class="section-title">The Problem</h2>
+                <h2 class="section-title reveal">The Problem</h2>
                 <div class="problem-grid">
-                    <div class="problem-text">
+                    <div class="problem-text reveal">
                         <h3>Medical AI is dangerously overconfident</h3>
-                        <p>Current AI systems deliver confident predictions without mechanisms to express uncertainty or acknowledge limitations. When clinicians present preliminary diagnoses, these systems agree rather than asking the clarifying questions that would reveal errors.</p>
-                        <p>This sycophantic behavior has documented clinical consequences: missed diagnoses, delayed treatments, and eroded trust in AI assisted medicine.</p>
+                        <p>Current AI systems conflate statistical pattern recognition with genuine clinical understanding. They deliver confident predictions without mechanisms to express uncertainty, acknowledge limitations, or push back on flawed assumptions.</p>
+                        <p>This sycophantic behavior has documented clinical consequences: missed diagnoses, delayed treatments, and eroded trust. The root issue isn't model accuracy. It's the absence of epistemic agency.</p>
                         <a href="https://doi.org/10.1371/journal.pdig.0001013" target="_blank" class="problem-highlight-link">
                             <div class="problem-highlight">
-                                <p>BODHI tackles this by embedding epistemic virtues directly into AI behavior through structured prompting, with no model fine tuning required.</p>
-                                <span class="highlight-cta">Read in PLOS Digital Health &rarr;</span>
+                                <p>BODHI introduces a design philosophy where AI systems are architected around epistemic virtues: the capacity to bridge knowledge gaps, remain open to alternatives, discern complexity, practice humility, and actively inquire.</p>
+                                <span class="highlight-cta">Read the design philosophy in PLOS Digital Health &rarr;</span>
                             </div>
                         </a>
                     </div>
                     <div class="problem-visual">
-                        <div class="problem-card">
+                        <div class="problem-card reveal">
                             <div class="card-icon">🤖</div>
                             <div>
                                 <h4>Sycophantic Agreement</h4>
                                 <p>AI confirms clinician assumptions instead of challenging potentially incorrect diagnoses</p>
                             </div>
                         </div>
-                        <div class="problem-card">
+                        <div class="problem-card reveal">
                             <div class="card-icon">⚠️</div>
                             <div>
                                 <h4>False Confidence</h4>
                                 <p>Models generate authoritative sounding responses even when operating outside their training distribution</p>
                             </div>
                         </div>
-                        <div class="problem-card">
+                        <div class="problem-card reveal">
                             <div class="card-icon">🔇</div>
                             <div>
                                 <h4>Missing Questions</h4>
@@ -135,28 +1382,27 @@
             </div>
         </section>
 
-        <!-- HOW IT WORKS -->
+        <!-- DESIGN PRINCIPLES -->
         <section class="how-section" id="framework">
             <div class="container">
-                <h2 class="section-title">How BODHI Works</h2>
-                <p class="section-subtitle">A two pass chain of thought protocol that separates internal reasoning from external communication. No model modification needed.</p>
-                <div class="how-flow">
-                    <div class="flow-step">
-                        <div class="step-number">1</div>
-                        <h4>Pass 1: Analyze</h4>
-                        <p>The system produces a structured analysis: task type, audience, best hypothesis, key uncertainties, clarifying questions, red flags, and safe recommendations.</p>
+                <h2 class="section-title reveal">Design Principles</h2>
+                <p class="section-subtitle reveal">BODHI is grounded in four principles that guide the design of AI systems with genuine epistemic agency &mdash; independent of any specific implementation method.</p>
+                <div class="principles-list">
+                    <div class="principle reveal" style="--p-color: var(--c-blue)">
+                        <div class="principle-name">Curiosity</div>
+                        <div class="principle-desc">Systems that actively seek context, ask clarifying questions, and explore alternative hypotheses &mdash; rather than defaulting to confident answers.</div>
                     </div>
-                    <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-step">
-                        <div class="step-number">2</div>
-                        <h4>Virtue Routing</h4>
-                        <p>Based on clinical complexity and confidence, the system routes through the Virtue Activation Matrix to determine the appropriate epistemic stance.</p>
+                    <div class="principle reveal" style="--p-color: var(--c-green)">
+                        <div class="principle-name">Calibrated Humility</div>
+                        <div class="principle-desc">Mechanisms for uncertainty quantification, explicit limitation acknowledgment, and recognition of knowledge boundaries &mdash; knowing what you don't know.</div>
                     </div>
-                    <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-step">
-                        <div class="step-number">3</div>
-                        <h4>Pass 2: Respond</h4>
-                        <p>A clinician facing response is generated with epistemic constraints: specific numbers, active questioning, alternative diagnoses, and appropriate hedging.</p>
+                    <div class="principle reveal" style="--p-color: var(--c-amber)">
+                        <div class="principle-name">Creative Reasoning</div>
+                        <div class="principle-desc">Novel hypothesis generation, divergent thinking, and alternative analytical approaches that go beyond statistical pattern matching.</div>
+                    </div>
+                    <div class="principle reveal" style="--p-color: var(--c-purple)">
+                        <div class="principle-name">Anti-Sycophancy</div>
+                        <div class="principle-desc">Counteracting RLHF-induced behaviors: agreement bias, overconfidence, hubris, and the tendency to confirm rather than challenge flawed assumptions.</div>
                     </div>
                 </div>
             </div>
@@ -165,14 +1411,14 @@
         <!-- VIRTUE ACTIVATION MATRIX -->
         <section class="framework-section">
             <div class="container">
-                <h2 class="section-title">Virtue Activation Matrix</h2>
-                <p class="section-subtitle">Four quadrants organize behavioral responses based on the interplay between uncertainty and clinical stakes.</p>
-                <figure class="matrix-figure">
+                <h2 class="section-title reveal">Virtue Activation Matrix</h2>
+                <p class="section-subtitle reveal">Central to BODHI's design principles: four quadrants organize behavioral responses based on the interplay between uncertainty and clinical stakes.</p>
+                <figure class="matrix-figure reveal">
                     <a href="https://www.medrxiv.org/content/10.64898/2026.02.06.26345664v1" target="_blank">
                         <img src="assets/fig1.png" alt="Virtue Activation Matrix mapping clinical complexity against model confidence" class="matrix-image" loading="lazy">
                     </a>
                     <figcaption class="matrix-caption">
-                        Virtue Activation Matrix mapping clinical complexity against model confidence. Q1 (Proceed &amp; Monitor): routine cases with high confidence. Q2 (Watchful &amp; Alternatives): complex cases requiring situational awareness. Q3 (Clarify &amp; Review): uncertain cases needing high curiosity and epistemic humility. Q4 (Escalate &amp; Reframe): high-stakes uncertainty demanding explicit escalation to human expertise. <a href="https://www.medrxiv.org/content/10.64898/2026.02.06.26345664v1" target="_blank" class="caption-link">Read More &rarr;</a>
+                        Virtue Activation Matrix mapping clinical complexity against model confidence. Q1 (Proceed &amp; Monitor): routine cases with high confidence. Q2 (Watchful &amp; Alternatives): complex cases requiring situational awareness. Q3 (Clarify &amp; Review): uncertain cases needing high curiosity and epistemic humility. Q4 (Escalate &amp; Reframe): high stakes uncertainty demanding explicit escalation to human expertise. <a href="https://www.medrxiv.org/content/10.64898/2026.02.06.26345664v1" target="_blank" class="caption-link">Read More &rarr;</a>
                     </figcaption>
                 </figure>
             </div>
@@ -181,34 +1427,34 @@
         <!-- ACTIVE RESEARCH MODULES -->
         <section class="modules-section" id="modules">
             <div class="container">
-                <h2 class="section-title">Active Research</h2>
-                <p class="section-subtitle">BODHI is a growing platform with multiple research branches. Each module operationalizes a distinct epistemic virtue and represents an active area of investigation.</p>
+                <h2 class="section-title reveal">Active Research</h2>
+                <p class="section-subtitle reveal">BODHI's design philosophy translates into concrete research modules, each operationalizing a distinct epistemic virtue. Some are empirically validated; others are active areas of investigation.</p>
                 <div class="modules-grid">
-                    <div class="module-card mod-curiosity">
+                    <div class="module-card mod-curiosity reveal">
                         <div class="module-header">
                             <h4>Curiosity Module</h4>
                             <span class="module-badge badge-active">Validated</span>
                         </div>
-                        <p>Context seeking behavior, clarifying question generation, and proactive exploration of alternative diagnoses. The core of the current BODHI implementation with +89.6pp improvement demonstrated on HealthBench Hard.</p>
+                        <p>Context seeking behavior, clarifying question generation, and proactive exploration of alternative diagnoses. Preliminary evaluation demonstrated +89.6pp improvement on HealthBench Hard.</p>
                         <div class="module-tags">
                             <span class="module-tag">Context Seeking</span>
                             <span class="module-tag">Active Inquiry</span>
                             <span class="module-tag">HealthBench</span>
                         </div>
                     </div>
-                    <div class="module-card mod-humility">
+                    <div class="module-card mod-humility reveal">
                         <div class="module-header">
                             <h4>Humility Module</h4>
                             <span class="module-badge badge-active">Validated</span>
                         </div>
-                        <p>Uncertainty quantification, sycophancy detection and mitigation, explicit limitation statements, and recognition of knowledge boundaries. Achieved d = 5.80 effect size on hedging behavior.</p>
+                        <p>Uncertainty quantification, sycophancy detection and mitigation, explicit limitation statements, and recognition of knowledge boundaries. Preliminary evaluation achieved d = 5.80 effect size on hedging behavior.</p>
                         <div class="module-tags">
                             <span class="module-tag">Uncertainty</span>
                             <span class="module-tag">Anti Sycophancy</span>
                             <span class="module-tag">Hedging</span>
                         </div>
                     </div>
-                    <div class="module-card mod-creativity">
+                    <div class="module-card mod-creativity reveal">
                         <div class="module-header">
                             <h4>Creativity Module</h4>
                             <span class="module-badge badge-expanding">In Development</span>
@@ -220,7 +1466,7 @@
                             <span class="module-tag">QMoE</span>
                         </div>
                     </div>
-                    <div class="module-card mod-sycophancy">
+                    <div class="module-card mod-sycophancy reveal">
                         <div class="module-header">
                             <h4>Sycophancy Detection</h4>
                             <span class="module-badge badge-active">Validated</span>
@@ -233,8 +1479,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="modules-cta">
-                    <p>We are actively expanding BODHI and welcome researchers, clinicians, and engineers interested in contributing to any module.</p>
+                <div class="modules-cta reveal">
+                    <p>BODHI is an expanding research platform. We welcome researchers, clinicians, and engineers interested in building AI systems with genuine epistemic agency.</p>
                     <a href="#contact" class="btn btn-primary">Get Involved</a>
                 </div>
             </div>
@@ -243,9 +1489,9 @@
         <!-- PUBLICATIONS -->
         <section class="publications-section" id="publications">
             <div class="container">
-                <h2 class="section-title">Publications</h2>
+                <h2 class="section-title reveal">Publications</h2>
                 <div class="publications-list">
-                    <div class="publication-card">
+                    <div class="publication-card reveal">
                         <span class="pub-badge published">Published</span>
                         <h3 class="pub-title">Beyond Overconfidence: Embedding Curiosity and Humility for Ethical Medical AI</h3>
                         <div class="pub-authors">Cajas Ordoñez SA, Castro R, Celi LA, Delos Reyes R, Engelmann J, Ercole A, Hilel A, Kalla M, Kinyera L, Lange M, Lunde TM, Meni MJ, Premo AE, Sedlakova J</div>
@@ -255,7 +1501,7 @@
                             <a href="https://doi.org/10.1371/journal.pdig.0001013" class="pub-link" target="_blank">View Paper &rarr;</a>
                         </div>
                     </div>
-                    <div class="publication-card">
+                    <div class="publication-card reveal">
                         <span class="pub-badge under-review">Under Review</span>
                         <h3 class="pub-title">An Engineering Framework for Curiosity Driven and Humble AI in Clinical Decision Support</h3>
                         <div class="pub-authors">Arslan J, Benke K, Cajas Ordoñez SA, Castro R, Celi LA, Cruz Suarez GA, Delos Reyes R, Engelmann J, Ercole A, et al.</div>
@@ -266,7 +1512,7 @@
                             <a href="https://github.com/sebasmos/humbleai-healthbench" class="pub-link" target="_blank">Code &rarr;</a>
                         </div>
                     </div>
-                    <div class="publication-card">
+                    <div class="publication-card reveal">
                         <span class="pub-badge published">Published</span>
                         <h3 class="pub-title">Humility and Curiosity in Human&ndash;AI Systems for Health Care</h3>
                         <div class="pub-authors">Cajas Ordoñez SA, Lange M, Lunde TM, Meni MJ, Premo AE</div>
@@ -276,7 +1522,7 @@
                             <a href="https://doi.org/10.1016/S0140-6736(25)01626-5" class="pub-link" target="_blank">View Paper &rarr;</a>
                         </div>
                     </div>
-                    <div class="publication-card">
+                    <div class="publication-card reveal">
                         <span class="pub-badge preprint">Preprint</span>
                         <h3 class="pub-title">Uncertainty Makes It Stable: Curiosity Driven Quantized Mixture of Experts</h3>
                         <div class="pub-authors">Cajas Ordoñez SA, Torres Torres LF, Meni MJ, Duran Paredes CA, Arazo E, Bosch C, Carbajo RS, Lai Y, Celi LA</div>
@@ -287,7 +1533,7 @@
                             <a href="https://github.com/sebasmos/curious-qmoe" class="pub-link" target="_blank">Code &rarr;</a>
                         </div>
                     </div>
-                    <div class="publication-card">
+                    <div class="publication-card reveal">
                         <span class="pub-badge published">Published</span>
                         <h3 class="pub-title">Teaching Machines to Doubt</h3>
                         <div class="pub-authors">Celi LA</div>
@@ -304,13 +1550,13 @@
         <!-- TEAM -->
         <section class="team-section" id="team">
             <div class="container">
-                <h2 class="section-title">Research Team</h2>
-                <p class="team-intro">BODHI is developed by an interdisciplinary team of researchers, clinicians, and engineers from institutions worldwide.</p>
+                <h2 class="section-title reveal">Research Team</h2>
+                <p class="team-intro reveal">BODHI is developed by an interdisciplinary team of researchers, clinicians, and engineers from institutions worldwide.</p>
 
                 <div class="team-category">
                     <h3 class="team-category-title">Principal Investigator</h3>
                     <div class="team-grid">
-                        <div class="team-member highlighted">
+                        <div class="team-member highlighted reveal">
                             <div class="member-name">Leo Anthony Celi</div>
                             <div class="member-role">Principal Investigator</div>
                             <div class="member-affiliation">MIT, Beth Israel Deaconess, Harvard</div>
@@ -322,121 +1568,42 @@
                 <div class="team-category">
                     <h3 class="team-category-title">Multidisciplinary Team Researchers</h3>
                     <div class="team-grid">
-                        <div class="team-member">
-                            <div class="member-name">Torleif Markussen Lunde</div>
-                            <div class="member-affiliation">University of Bergen</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Maximin Lange</div>
-                            <div class="member-affiliation">MIT, King's College London</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Felipe Ocampo Osorio</div>
-                            <div class="member-affiliation">Valle del Lili, Universidad Icesi</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Oriel Perets</div>
-                            <div class="member-affiliation">Ben-Gurion University of the Negev</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Sebastián Andrés Cajas Ordoñez</div>
-                            <div class="member-affiliation">MIT Critical Data</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Mackenzie J Meni</div>
-                            <div class="member-affiliation">Florida Institute of Technology</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Gustavo Adolfo Cruz Suarez</div>
-                            <div class="member-affiliation">Valle del Lili, Universidad Icesi</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Rowell Castro</div>
-                            <div class="member-affiliation">MIT</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Roben Delos Reyes</div>
-                            <div class="member-affiliation">University of Melbourne</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Janan Arslan</div>
-                            <div class="member-affiliation">Sorbonne Université, University of Melbourne</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Kurt Benke</div>
-                            <div class="member-affiliation">University of Melbourne</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Justin Engelmann</div>
-                            <div class="member-affiliation">University College London</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Ari Ercole</div>
-                            <div class="member-affiliation">Cambridge University Hospitals</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Almog Hilel</div>
-                            <div class="member-affiliation">MIT</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Mahima Kalla</div>
-                            <div class="member-affiliation">University of Melbourne</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Leo Kinyera</div>
-                            <div class="member-affiliation">Mbarara University</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Anna E Premo</div>
-                            <div class="member-affiliation">ETH Zurich</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Jana Sedlakova</div>
-                            <div class="member-affiliation">University of Zurich</div>
-                        </div>
-                        <div class="team-member">
-                            <div class="member-name">Pritika Vig</div>
-                            <div class="member-affiliation">MIT</div>
-                        </div>
+                        <div class="team-member reveal"><div class="member-name">Torleif Markussen Lunde</div><div class="member-affiliation">University of Bergen</div></div>
+                        <div class="team-member reveal"><div class="member-name">Maximin Lange</div><div class="member-affiliation">MIT, King's College London</div></div>
+                        <div class="team-member reveal"><div class="member-name">Felipe Ocampo Osorio</div><div class="member-affiliation">Valle del Lili, Universidad Icesi</div></div>
+                        <div class="team-member reveal"><div class="member-name">Oriel Perets</div><div class="member-affiliation">Ben-Gurion University of the Negev</div></div>
+                        <div class="team-member reveal"><div class="member-name">Sebastián Andrés Cajas Ordoñez</div><div class="member-affiliation">MIT Critical Data</div></div>
+                        <div class="team-member reveal"><div class="member-name">Mackenzie J Meni</div><div class="member-affiliation">Florida Institute of Technology</div></div>
+                        <div class="team-member reveal"><div class="member-name">Gustavo Adolfo Cruz Suarez</div><div class="member-affiliation">Valle del Lili, Universidad Icesi</div></div>
+                        <div class="team-member reveal"><div class="member-name">Rowell Castro</div><div class="member-affiliation">MIT</div></div>
+                        <div class="team-member reveal"><div class="member-name">Roben Delos Reyes</div><div class="member-affiliation">University of Melbourne</div></div>
+                        <div class="team-member reveal"><div class="member-name">Janan Arslan</div><div class="member-affiliation">Sorbonne Université, University of Melbourne</div></div>
+                        <div class="team-member reveal"><div class="member-name">Kurt Benke</div><div class="member-affiliation">University of Melbourne</div></div>
+                        <div class="team-member reveal"><div class="member-name">Justin Engelmann</div><div class="member-affiliation">University College London</div></div>
+                        <div class="team-member reveal"><div class="member-name">Ari Ercole</div><div class="member-affiliation">Cambridge University Hospitals</div></div>
+                        <div class="team-member reveal"><div class="member-name">Almog Hilel</div><div class="member-affiliation">MIT</div></div>
+                        <div class="team-member reveal"><div class="member-name">Mahima Kalla</div><div class="member-affiliation">University of Melbourne</div></div>
+                        <div class="team-member reveal"><div class="member-name">Leo Kinyera</div><div class="member-affiliation">Mbarara University</div></div>
+                        <div class="team-member reveal"><div class="member-name">Anna E Premo</div><div class="member-affiliation">ETH Zurich</div></div>
+                        <div class="team-member reveal"><div class="member-name">Jana Sedlakova</div><div class="member-affiliation">University of Zurich</div></div>
+                        <div class="team-member reveal"><div class="member-name">Pritika Vig</div><div class="member-affiliation">MIT</div></div>
                     </div>
                 </div>
 
                 <div class="institutions-section">
                     <h3 class="team-category-title">Partner Institutions</h3>
                     <div class="logos-grid">
-                        <div class="logo-item">
-                            <img src="assets/logos/logo.svg" alt="MIT Critical Data" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/mit.png" alt="MIT" class="institution-logo logo-invert" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/harvard.png" alt="Harvard University" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/beth-israel.webp" alt="Beth Israel Deaconess Medical Center" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/melburne.png" alt="University of Melbourne" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/sorbone-university.png" alt="Sorbonne Université" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/ucl.jpg" alt="University College London" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/Cambridge_University_Hospitals_NHS_FT.svg" alt="Cambridge University Hospitals" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/eth-zurish.png" alt="ETH Zürich" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/valle-del-lili.webp" alt="Valle del Lili" class="institution-logo" loading="lazy">
-                        </div>
-                        <div class="logo-item">
-                            <img src="assets/logos/ben-gurion.png" alt="Ben-Gurion University of the Negev" class="institution-logo" loading="lazy">
-                        </div>
+                        <div class="logo-item"><img src="assets/logos/logo.svg" alt="MIT Critical Data" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/mit.png" alt="MIT" class="institution-logo logo-invert" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/harvard.png" alt="Harvard University" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/beth-israel.webp" alt="Beth Israel Deaconess Medical Center" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/melburne.png" alt="University of Melbourne" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/sorbone-university.png" alt="Sorbonne Université" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/ucl.jpg" alt="University College London" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/Cambridge_University_Hospitals_NHS_FT.svg" alt="Cambridge University Hospitals" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/eth-zurish.png" alt="ETH Zürich" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/valle-del-lili.webp" alt="Valle del Lili" class="institution-logo" loading="lazy"></div>
+                        <div class="logo-item"><img src="assets/logos/ben-gurion.png" alt="Ben-Gurion University of the Negev" class="institution-logo" loading="lazy"></div>
                     </div>
                 </div>
             </div>
@@ -445,22 +1612,22 @@
         <!-- CODE & RESOURCES -->
         <section class="code-section" id="code">
             <div class="container">
-                <h2 class="section-title">Code &amp; Resources</h2>
+                <h2 class="section-title reveal">Code &amp; Resources</h2>
                 <div class="code-grid">
-                    <div class="code-card">
+                    <div class="code-card reveal">
                         <div class="code-icon">📦</div>
                         <h3>BODHI Python Package</h3>
                         <p>Fully open source implementation of the BODHI framework. Install via pip, explore the code, report issues, or contribute on GitHub.</p>
                         <div class="code-command">pip install bodhi-llm</div>
                         <a href="https://pypi.org/project/bodhi-llm/" class="code-link" target="_blank">View on PyPI &rarr;</a>
                     </div>
-                    <div class="code-card">
+                    <div class="code-card reveal">
                         <div class="code-icon">🔬</div>
                         <h3>Evaluation Scripts</h3>
                         <p>Complete evaluation framework for testing BODHI on HealthBench Hard and other clinical benchmarks with statistical analysis.</p>
                         <a href="https://github.com/sebasmos/humbleai-healthbench" class="code-link" target="_blank">View on GitHub &rarr;</a>
                     </div>
-                    <div class="code-card">
+                    <div class="code-card reveal">
                         <div class="code-icon">⚡</div>
                         <h3>Curiosity Driven QMoE</h3>
                         <p>Quantized Mixture of Experts with curiosity driven routing for efficient edge deployment with stable latency.</p>
@@ -473,19 +1640,19 @@
         <!-- CONTACT -->
         <section class="contact-section" id="contact">
             <div class="container">
-                <h2 class="section-title">Get in Touch</h2>
-                <p class="section-subtitle">Interested in collaborating? We welcome researchers, clinicians, and institutions working on safe, ethical AI for clinical decision support. Reach out to any of us directly.</p>
+                <h2 class="section-title reveal">Get in Touch</h2>
+                <p class="section-subtitle reveal">We welcome researchers, clinicians, and engineers working on epistemic agency, uncertainty quantification, and safe AI for clinical decision support. Reach out to any of us directly.</p>
                 <div class="contact-emails">
-                    <a href="mailto:lceli@mit.edu" class="contact-email-card">
+                    <a href="mailto:lceli@mit.edu" class="contact-email-card reveal">
                         <span class="contact-name">Leo Anthony Celi</span>
                         <span class="contact-addr">lceli@mit.edu</span>
                     </a>
-                    <a href="mailto:mlange2@mit.edu" class="contact-email-card">
+                    <a href="mailto:mlange2@mit.edu" class="contact-email-card reveal">
                         <span class="contact-name">Maximin Lange</span>
                         <span class="contact-addr">mlange2@mit.edu</span>
                     </a>
-                    <a href="mailto:sebasmos@mit.edu" class="contact-email-card">
-                        <span class="contact-name">Sebasti&aacute;n Andr&eacute;s Cajas Ordo&ntilde;ez</span>
+                    <a href="mailto:sebasmos@mit.edu" class="contact-email-card reveal">
+                        <span class="contact-name">Sebastián Andrés Cajas Ordoñez</span>
                         <span class="contact-addr">sebasmos@mit.edu</span>
                     </a>
                 </div>
@@ -516,6 +1683,77 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+    // ── Navigation ──
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navbar = document.querySelector('.navbar');
+
+    navToggle.addEventListener('click', () => {
+        const open = navMenu.classList.toggle('active');
+        navToggle.setAttribute('aria-expanded', open);
+        const s = navToggle.querySelectorAll('span');
+        if (open) {
+            s[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            s[1].style.opacity = '0';
+            s[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+            s[0].style.transform = ''; s[1].style.opacity = ''; s[2].style.transform = '';
+        }
+    });
+
+    navLinks.forEach(link => link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        const s = navToggle.querySelectorAll('span');
+        s[0].style.transform = ''; s[1].style.opacity = ''; s[2].style.transform = '';
+    }));
+
+    // ── Scroll: navbar style + active link ──
+    const sections = document.querySelectorAll('section[id]');
+    let ticking = false;
+
+    function onScroll() {
+        const sy = window.scrollY;
+        navbar.classList.toggle('scrolled', sy > 20);
+
+        const pos = sy + 120;
+        sections.forEach(sec => {
+            const top = sec.offsetTop, h = sec.offsetHeight, id = sec.id;
+            if (pos >= top && pos < top + h) {
+                navLinks.forEach(l => {
+                    l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+                });
+            }
+        });
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
+    onScroll();
+
+    // ── Scroll reveal ──
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                revealObs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+        el.style.transitionDelay = (i % 6) * 0.06 + 's';
+        revealObs.observe(el);
+    });
+
+    // ── Smooth anchor scroll ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const t = document.querySelector(this.getAttribute('href'));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        });
+    });
+    </script>
 </body>
 </html>

@@ -58,33 +58,6 @@ We welcome collaborators for any module. Contact us to get involved.
 
 5. Celi LA. "Teaching Machines to Doubt." *Nature Medicine*, 2025. [Paper](https://www.nature.com/articles/s41591-025-04013-x)
 
-## Team
-
-**Principal Investigator**
-- Leo Anthony Celi — MIT, Beth Israel Deaconess, Harvard
-
-**Multidisciplinary Team Researchers**
-- Janan Arslan — Sorbonne Université, University of Melbourne
-- Kurt Benke — University of Melbourne
-- Sebastián Andrés Cajas Ordoñez — MIT Critical Data
-- Rowell Castro — MIT
-- Gustavo Adolfo Cruz Suarez — Valle del Lili, Universidad Icesi
-- Roben Delos Reyes — University of Melbourne
-- Justin Engelmann — University College London
-- Ari Ercole — Cambridge University Hospitals
-- Almog Hilel — MIT
-- Mahima Kalla — University of Melbourne
-- Leo Kinyera — Mbarara University
-- Maximin Lange — MIT, King's College London
-- Torleif Markussen Lunde — University of Bergen
-- Mackenzie J Meni — Florida Institute of Technology
-- Felipe Ocampo Osorio — Valle del Lili, Universidad Icesi
-- Oriel Perets — Ben-Gurion University of the Negev
-- Anna E Premo — ETH Zurich
-- Jana Sedlakova — University of Zurich
-- Pritika Vig — MIT
-
-**Partner Institutions:** MIT Critical Data, Laboratory for Computational Physiology, and collaborating institutions worldwide.
 
 ## Contact
 
