@@ -32,7 +32,7 @@ MIT Critical Data, Laboratory for Computational Physiology, and collaborating in
 
 ## Contact
 
-For collaboration inquiries: mlange2@mit.edu
+For collaboration inquiries: sebasmos@mit.edu // mlange2@mit.edu // lceli@mit.edu
 
 ## License
 
