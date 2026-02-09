@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BODHI Framework | Curiosity Driven Clinical AI</title>
+    <link rel="icon" type="image/png" href="assets/fav.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- Updated: 2026-02-09T10:40:17.087795 --></head>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
 <body>
+
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"/>
-                    <path d="M20 8 L20 32 M12 20 L28 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="20" cy="20" r="4" fill="currentColor"/>
-                </svg>
+            <a href="#home" class="nav-brand">
+                <img src="assets/fav.png" alt="BODHI Logo" class="logo-icon">
                 <span class="brand-text">BODHI</span>
-            </div>
+            </a>
             <div class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#framework" class="nav-link">Framework</a>
+                <a href="#modules" class="nav-link">Research</a>
                 <a href="#publications" class="nav-link">Publications</a>
                 <a href="#team" class="nav-link">Team</a>
                 <a href="#code" class="nav-link">Code</a>
@@ -36,171 +35,301 @@
     </nav>
 
     <main class="main-content">
+
+        <!-- HERO -->
         <section class="hero-section" id="home">
             <div class="container">
-                <h1 class="hero-title fade-in">BODHI Framework</h1>
-                <div class="hero-subtitle fade-in-delay">Balanced, Open minded, Diagnostic, Humble, and Inquisitive</div>
-                <p class="hero-description fade-in-delay">An engineering framework for curiosity driven and humble AI in clinical decision support</p>
-            </div>
-        </section>
-
-        <section class="about-section">
-            <div class="container">
-                <h2 class="section-title">What is BODHI?</h2>
-                <div class="about-content">
-                    <p class="about-text">
-                        BODHI addresses a gap in medical AI: large language models often express inappropriate confidence, conflating statistical pattern recognition with genuine medical understanding. Through a dual reflective architecture, BODHI decomposes epistemic uncertainty into task specific dimensions and constrains model responses using virtue based stance rules.
+                <div class="hero-content fade-in">
+                    <h1 class="hero-title">BODHI Framework</h1>
+                    <div class="hero-acronym fade-in-delay">
+                        <span><strong>B</strong>ridging</span>
+                        <span><strong>O</strong>pen</span>
+                        <span><strong>D</strong>iscerning</span>
+                        <span><strong>H</strong>umble</span>
+                        <span><strong>I</strong>nquiring</span>
+                    </div>
+                    <p class="hero-description fade-in-delay">
+                        An open source framework that teaches medical AI to ask questions, acknowledge uncertainty, and defer to human expertise instead of pretending to know everything.
                     </p>
-                    <p class="about-text">
-                        Our validation on 200 clinical vignettes from HealthBench Hard demonstrates significant improvements. BODHI achieved a 97.3% rate of appropriate clarifying questions in GPT 4.1 mini, compared to just 7.8% at baseline, showing effectiveness in eliciting information gathering behavior.
-                    </p>
-                    <p class="about-text">
-                        The framework improved overall clinical response quality by +17.3 percentage points (p < 0.0001, Cohen's d = 0.50) while achieving very large effect sizes on curiosity (d = 16.38) and humility (d = 5.80) metrics, suggesting LLMs can be reliably constrained to operate within epistemic boundaries.
-                    </p>
+                    <div class="hero-buttons fade-in-delay">
+                        <a href="https://doi.org/10.1371/journal.pdig.0001013" class="btn btn-primary" target="_blank">Read the Paper</a>
+                        <a href="https://pypi.org/project/bodhi-llm/" class="btn btn-secondary" target="_blank">pip install bodhi-llm</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="framework-section" id="framework">
+        <!-- STATS BAR -->
+        <section class="stats-bar">
             <div class="container">
-                <h2 class="section-title">The BODHI Framework</h2>
-                <p class="framework-intro">
-                    BODHI operates through a two pass chain of thought protocol that separates internal reasoning from external communication, guided by a Virtue Activation Matrix mapping clinical complexity against model confidence.
-                </p>
-
-                <div class="virtue-matrix">
-                    <h3 class="subsection-title">Virtue Activation Matrix</h3>
-                    <div class="matrix-description">
-                        <p>Four quadrants organize behavioral responses based on the interplay between uncertainty and stakes:</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">+89.6pp</div>
+                        <div class="stat-label">Context Seeking Improvement</div>
+                        <div class="stat-detail">7.8% &rarr; 97.3% (GPT 4.1 mini)</div>
                     </div>
-                    <div class="matrix-grid">
-                        <div class="matrix-quadrant q1">
-                            <div class="quadrant-number">Q1</div>
-                            <h4>Proceed & Monitor</h4>
-                            <p>High confidence, low complexity. Routine cases requiring minimal curiosity and low humility burden.</p>
-                        </div>
-                        <div class="matrix-quadrant q2">
-                            <div class="quadrant-number">Q2</div>
-                            <h4>Watchful & Alternatives</h4>
-                            <p>High confidence, high complexity. Demanding situational awareness and consideration of differential diagnoses.</p>
-                        </div>
-                        <div class="matrix-quadrant q3">
-                            <div class="quadrant-number">Q3</div>
-                            <h4>Clarify & Review</h4>
-                            <p>Low confidence, low complexity. Triggering high curiosity and epistemic humility through targeted clarifying questions.</p>
-                        </div>
-                        <div class="matrix-quadrant q4">
-                            <div class="quadrant-number">Q4</div>
-                            <h4>Escalate & Reframe</h4>
-                            <p>Low confidence, high complexity. High stakes uncertainty demanding curiosity and deferential humility with explicit escalation to human expertise.</p>
-                        </div>
+                    <div class="stat-item">
+                        <div class="stat-value">+16.6pp</div>
+                        <div class="stat-label">Overall Clinical Quality</div>
+                        <div class="stat-detail">p &lt; 0.0001, 5 seeds</div>
                     </div>
-                </div>
-
-                <div class="framework-features">
-                    <h3 class="subsection-title">Key Features</h3>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">⚡</div>
-                            <h4>Two Pass Protocol</h4>
-                            <p>Pass 1 generates structured uncertainty analysis with seven mandatory fields. Pass 2 produces clinician facing responses with epistemic constraints.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🎯</div>
-                            <h4>Task Routing</h4>
-                            <p>Adapts behavior based on context: Emergency Mode prioritizes safety, Technical Mode reduces hedging, Conversation Mode applies full epistemic constraints.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🔍</div>
-                            <h4>Curiosity Driven</h4>
-                            <p>Context seeking rate increased from 7.8% to 97.3%, with systems actively generating clarifying questions when facing diagnostic ambiguity.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🤝</div>
-                            <h4>Epistemic Humility</h4>
-                            <p>Hedging frequency increased by 20.3 percentage points, acknowledging limitations and deferring appropriately to human expertise.</p>
-                        </div>
+                    <div class="stat-item">
+                        <div class="stat-value">d = 16.38</div>
+                        <div class="stat-label">Curiosity Effect Size</div>
+                        <div class="stat-detail">Very large effect</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">d = 5.80</div>
+                        <div class="stat-label">Humility Effect Size</div>
+                        <div class="stat-detail">GPT 4.1 mini hedging</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="results-section">
+        <!-- THE PROBLEM -->
+        <section class="problem-section">
             <div class="container">
-                <h2 class="section-title">Key Results</h2>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="result-value">+17.3pp</div>
-                        <div class="result-label">Overall Clinical Quality</div>
-                        <div class="result-detail">GPT 4.1 mini, p < 0.0001</div>
+                <h2 class="section-title">The Problem</h2>
+                <div class="problem-grid">
+                    <div class="problem-text">
+                        <h3>Medical AI is dangerously overconfident</h3>
+                        <p>Current AI systems deliver confident predictions without mechanisms to express uncertainty or acknowledge limitations. When clinicians present preliminary diagnoses, these systems agree rather than asking the clarifying questions that would reveal errors.</p>
+                        <p>This sycophantic behavior has documented clinical consequences: missed diagnoses, delayed treatments, and eroded trust in AI assisted medicine.</p>
+                        <a href="https://doi.org/10.1371/journal.pdig.0001013" target="_blank" class="problem-highlight-link">
+                            <div class="problem-highlight">
+                                <p>BODHI tackles this by embedding epistemic virtues directly into AI behavior through structured prompting, with no model fine tuning required.</p>
+                                <span class="highlight-cta">Read in PLOS Digital Health &rarr;</span>
+                            </div>
+                        </a>
                     </div>
-                    <div class="result-card">
-                        <div class="result-value">97.3%</div>
-                        <div class="result-label">Context Seeking Rate</div>
-                        <div class="result-detail">Up from 7.8% baseline</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-value">d = 16.38</div>
-                        <div class="result-label">Curiosity Effect Size</div>
-                        <div class="result-detail">Very large effect</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-value">d = 5.80</div>
-                        <div class="result-label">Humility Effect Size</div>
-                        <div class="result-detail">GPT 4.1 mini hedging</div>
+                    <div class="problem-visual">
+                        <div class="problem-card">
+                            <div class="card-icon">🤖</div>
+                            <div>
+                                <h4>Sycophantic Agreement</h4>
+                                <p>AI confirms clinician assumptions instead of challenging potentially incorrect diagnoses</p>
+                            </div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="card-icon">⚠️</div>
+                            <div>
+                                <h4>False Confidence</h4>
+                                <p>Models generate authoritative sounding responses even when operating outside their training distribution</p>
+                            </div>
+                        </div>
+                        <div class="problem-card">
+                            <div class="card-icon">🔇</div>
+                            <div>
+                                <h4>Missing Questions</h4>
+                                <p>Baseline models ask clarifying questions only 7.8% of the time when they should be asking nearly always</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- HOW IT WORKS -->
+        <section class="how-section" id="framework">
+            <div class="container">
+                <h2 class="section-title">How BODHI Works</h2>
+                <p class="section-subtitle">A two pass chain of thought protocol that separates internal reasoning from external communication. No model modification needed.</p>
+                <div class="how-flow">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <h4>Pass 1: Analyze</h4>
+                        <p>The system produces a structured analysis: task type, audience, best hypothesis, key uncertainties, clarifying questions, red flags, and safe recommendations.</p>
+                    </div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <h4>Virtue Routing</h4>
+                        <p>Based on clinical complexity and confidence, the system routes through the Virtue Activation Matrix to determine the appropriate epistemic stance.</p>
+                    </div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <h4>Pass 2: Respond</h4>
+                        <p>A clinician facing response is generated with epistemic constraints: specific numbers, active questioning, alternative diagnoses, and appropriate hedging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIRTUE ACTIVATION MATRIX -->
+        <section class="framework-section">
+            <div class="container">
+                <h2 class="section-title">Virtue Activation Matrix</h2>
+                <p class="section-subtitle">Four quadrants organize behavioral responses based on the interplay between uncertainty and clinical stakes.</p>
+                <figure class="matrix-figure">
+                    <a href="https://www.medrxiv.org/content/10.64898/2026.02.06.26345664v1" target="_blank">
+                        <img src="assets/fig1.png" alt="Virtue Activation Matrix mapping clinical complexity against model confidence" class="matrix-image">
+                    </a>
+                    <figcaption class="matrix-caption">
+                        <strong>Figure 1.</strong> Virtue Activation Matrix mapping clinical complexity against model confidence. Q1 (Proceed &amp; Monitor): routine cases with high confidence. Q2 (Watchful &amp; Alternatives): complex cases requiring situational awareness. Q3 (Clarify &amp; Review): uncertain cases needing high curiosity and epistemic humility. Q4 (Escalate &amp; Reframe): high stakes uncertainty demanding explicit escalation to human expertise.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- KEY FEATURES -->
+        <section class="features-section">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h4>Two Pass Protocol</h4>
+                        <p>Pass 1 generates structured uncertainty analysis. Pass 2 produces clinician facing responses with epistemic constraints.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Task Routing</h4>
+                        <p>Adapts behavior by context: Emergency, Technical, Hybrid, and Conversation modes with different epistemic requirements.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h4>Curiosity Driven</h4>
+                        <p>Context seeking rate increased from 7.8% to 97.3%, actively generating clarifying questions under diagnostic ambiguity.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <h4>Epistemic Humility</h4>
+                        <p>Hedging frequency increased by +20.3pp, acknowledging limitations and deferring appropriately to human expertise.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACTIVE RESEARCH MODULES -->
+        <section class="modules-section" id="modules">
+            <div class="container">
+                <h2 class="section-title">Active Research</h2>
+                <p class="section-subtitle">BODHI is a growing platform with multiple research branches. Each module operationalizes a distinct epistemic virtue and represents an active area of investigation.</p>
+                <div class="modules-grid">
+                    <div class="module-card mod-curiosity">
+                        <div class="module-header">
+                            <h4>Curiosity Module</h4>
+                            <span class="module-badge badge-active">Validated</span>
+                        </div>
+                        <p>Context seeking behavior, clarifying question generation, and proactive exploration of alternative diagnoses. The core of the current BODHI implementation with +89.6pp improvement demonstrated on HealthBench Hard.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Context Seeking</span>
+                            <span class="module-tag">Active Inquiry</span>
+                            <span class="module-tag">HealthBench</span>
+                        </div>
+                    </div>
+                    <div class="module-card mod-humility">
+                        <div class="module-header">
+                            <h4>Humility Module</h4>
+                            <span class="module-badge badge-active">Validated</span>
+                        </div>
+                        <p>Uncertainty quantification, sycophancy detection and mitigation, explicit limitation statements, and recognition of knowledge boundaries. Achieved d = 5.80 effect size on hedging behavior.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Uncertainty</span>
+                            <span class="module-tag">Anti Sycophancy</span>
+                            <span class="module-tag">Hedging</span>
+                        </div>
+                    </div>
+                    <div class="module-card mod-creativity">
+                        <div class="module-header">
+                            <h4>Creativity Module</h4>
+                            <span class="module-badge badge-expanding">In Development</span>
+                        </div>
+                        <p>Novel hypothesis generation, alternative analytical approaches, and divergent thinking in clinical reasoning. Expanding BODHI beyond safety constraints into creative diagnostic exploration.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Hypothesis Generation</span>
+                            <span class="module-tag">Divergent Thinking</span>
+                            <span class="module-tag">QMoE</span>
+                        </div>
+                    </div>
+                    <div class="module-card mod-sycophancy">
+                        <div class="module-header">
+                            <h4>Sycophancy Detection</h4>
+                            <span class="module-badge badge-active">Validated</span>
+                        </div>
+                        <p>Detection and mitigation of sycophantic agreement where AI confirms clinician assumptions instead of challenging potentially incorrect diagnoses. Anti-sycophancy measures promote independent clinical reasoning with documented reduction in agreement bias.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Anti Sycophancy</span>
+                            <span class="module-tag">Agreement Bias</span>
+                            <span class="module-tag">Independent Reasoning</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modules-cta">
+                    <p>We are actively expanding BODHI and welcome researchers, clinicians, and engineers interested in contributing to any module.</p>
+                    <a href="#contact" class="btn btn-primary">Get Involved</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PUBLICATIONS -->
         <section class="publications-section" id="publications">
             <div class="container">
                 <h2 class="section-title">Publications</h2>
                 <div class="publications-list">
-                    <div class="publication-card featured">
-                        <div class="pub-badge">Main Paper</div>
-                        <h3 class="pub-title">An Engineering Framework for Curiosity Driven and Humble AI in Clinical Decision Support</h3>
-                        <div class="pub-authors">Arslan J, Benke K, Cajas Ordoñez SA, Castro R, Celi LA, Cruz Suarez GA, Delos Reyes R, Engelmann J, Ercole A, et al.</div>
-                        <div class="pub-venue">MHRA MIT Technical Report</div>
-                        <div class="pub-year">2026</div>
+                    <div class="publication-card">
+                        <span class="pub-badge published">Published</span>
+                        <h3 class="pub-title">Beyond Overconfidence: Embedding Curiosity and Humility for Ethical Medical AI</h3>
+                        <div class="pub-authors">Cajas Ordoñez SA, Castro R, Celi LA, Delos Reyes R, Engelmann J, Ercole A, Hilel A, Kalla M, Kinyera L, Lange M, Lunde TM, Meni MJ, Premo AE, Sedlakova J</div>
+                        <div class="pub-venue">PLOS Digital Health 5(1): e0001013</div>
+                        <div class="pub-year">January 2026</div>
                         <div class="pub-links">
-                            <a href="#" class="pub-link">PDF</a>
-                            <a href="https://github.com/sebasmos/humbleai-healthbench" class="pub-link" target="_blank">Code</a>
+                            <a href="https://doi.org/10.1371/journal.pdig.0001013" class="pub-link" target="_blank">View Paper &rarr;</a>
                         </div>
                     </div>
                     <div class="publication-card">
-                        <h3 class="pub-title">Beyond Overconfidence: Embedding Curiosity and Humility for Ethical Medical AI</h3>
-                        <div class="pub-authors">Cajas Ordóñez SA, Castro R, Celi LA, Delos Reyes R, Engelmann J, Ercole A, Hilel A, Kalla M, Kinyera L, Lange M, Lunde TM, Meni MJ, Premo AE, Sedlakova J</div>
-                        <div class="pub-venue">PLOS Digital Health 5(1): e0001013</div>
+                        <span class="pub-badge under-review">Under Review</span>
+                        <h3 class="pub-title">An Engineering Framework for Curiosity Driven and Humble AI in Clinical Decision Support</h3>
+                        <div class="pub-authors">Arslan J, Benke K, Cajas Ordoñez SA, Castro R, Celi LA, Cruz Suarez GA, Delos Reyes R, Engelmann J, Ercole A, et al.</div>
+                        <div class="pub-venue">BMJ Health &amp; Care Informatics</div>
                         <div class="pub-year">2026</div>
-                        <a href="https://doi.org/10.1371/journal.pdig.0001013" class="pub-link" target="_blank">View Paper →</a>
+                        <div class="pub-links">
+                            <a href="https://www.medrxiv.org/content/10.64898/2026.02.06.26345664v1" class="pub-link" target="_blank">Preprint &rarr;</a>
+                            <a href="https://github.com/sebasmos/humbleai-healthbench" class="pub-link" target="_blank">Code &rarr;</a>
+                        </div>
                     </div>
                     <div class="publication-card">
+                        <span class="pub-badge published">Published</span>
+                        <h3 class="pub-title">Humility and Curiosity in Human&ndash;AI Systems for Health Care</h3>
+                        <div class="pub-authors">Cajas Ordoñez SA, Lange M, Lunde TM, Meni MJ, Premo AE</div>
+                        <div class="pub-venue">The Lancet 406(10505): 804-805</div>
+                        <div class="pub-year">2025</div>
+                        <div class="pub-links">
+                            <a href="https://doi.org/10.1016/S0140-6736(25)01626-5" class="pub-link" target="_blank">View Paper &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="publication-card">
+                        <span class="pub-badge preprint">Preprint</span>
                         <h3 class="pub-title">Uncertainty Makes It Stable: Curiosity Driven Quantized Mixture of Experts</h3>
-                        <div class="pub-authors">Cajas Ordóñez SA, Torres Torres LF, Meni MJ, Duran Paredes CA, Arazo E, Bosch C, Carbajo RS, Lai Y, Celi LA</div>
+                        <div class="pub-authors">Cajas Ordoñez SA, Torres Torres LF, Meni MJ, Duran Paredes CA, Arazo E, Bosch C, Carbajo RS, Lai Y, Celi LA</div>
                         <div class="pub-venue">arXiv preprint arXiv:2511.11743</div>
                         <div class="pub-year">2025</div>
                         <div class="pub-links">
-                            <a href="https://arxiv.org/abs/2511.11743" class="pub-link" target="_blank">arXiv</a>
-                            <a href="https://github.com/sebasmos/curious-qmoe" class="pub-link" target="_blank">Code</a>
+                            <a href="https://arxiv.org/abs/2511.11743" class="pub-link" target="_blank">arXiv &rarr;</a>
+                            <a href="https://github.com/sebasmos/curious-qmoe" class="pub-link" target="_blank">Code &rarr;</a>
                         </div>
                     </div>
                     <div class="publication-card">
-                        <h3 class="pub-title">Humility and Curiosity in Human–AI Systems for Health Care</h3>
-                        <div class="pub-authors">Cajas Ordóñez SA, Lange M, Lunde TM, Meni MJ, Premo AE</div>
-                        <div class="pub-venue">The Lancet 406(10505): 804-805</div>
+                        <span class="pub-badge published">Published</span>
+                        <h3 class="pub-title">Teaching Machines to Doubt</h3>
+                        <div class="pub-authors">Celi LA</div>
+                        <div class="pub-venue">Nature Medicine</div>
                         <div class="pub-year">2025</div>
-                        <a href="https://doi.org/10.1016/S0140-6736(25)01626-5" class="pub-link" target="_blank">View Paper →</a>
+                        <div class="pub-links">
+                            <a href="https://www.nature.com/articles/s41591-025-04013-x" class="pub-link" target="_blank">View Paper &rarr;</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- TEAM -->
         <section class="team-section" id="team">
             <div class="container">
                 <h2 class="section-title">Research Team</h2>
-                <p class="team-intro">BODHI is developed by an interdisciplinary team of researchers from institutions worldwide.</p>
-                
+                <p class="team-intro">BODHI is developed by an interdisciplinary team of researchers, clinicians, and engineers from institutions worldwide.</p>
+
                 <div class="team-category">
                     <h3 class="team-category-title">Principal Investigator</h3>
                     <div class="team-grid">
@@ -208,143 +337,202 @@
                             <div class="member-name">Leo Anthony Celi</div>
                             <div class="member-role">Principal Investigator</div>
                             <div class="member-affiliation">MIT, Beth Israel Deaconess, Harvard</div>
+                            <a href="mailto:lceli@mit.edu" class="member-email">lceli@mit.edu</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="team-category">
-                    <h3 class="team-category-title">Lead Researchers</h3>
+                    <h3 class="team-category-title">Multidisciplinary Team Researchers</h3>
                     <div class="team-grid">
                         <div class="team-member">
-                            <div class="member-name">Janan Arslan</div>
-                            <div class="member-affiliation">Sorbonne Université, University of Melbourne</div>
+                            <div class="member-name">Torleif Markussen Lunde</div>
+                            <div class="member-affiliation">University of Bergen</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Maximin Lange</div>
+                            <div class="member-affiliation">MIT, King's College London</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Felipe Ocampo Osorio</div>
+                            <div class="member-affiliation">Valle del Lili, Universidad Icesi</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Oriel Perets</div>
+                            <div class="member-affiliation">Ben-Gurion University of the Negev</div>
                         </div>
                         <div class="team-member">
                             <div class="member-name">Sebastián Andrés Cajas Ordoñez</div>
                             <div class="member-affiliation">MIT Critical Data</div>
-                            <a href="/cdn-cgi/l/email-protection#8af9efe8ebf9e7e5f9cae7e3fea4efeeff" class="member-email"><span class="__cf_email__" data-cfemail="0172646360726c6e72416c68752f646574">[email&#160;protected]</span></a>
                         </div>
                         <div class="team-member">
-                            <div class="member-name">Kurt Benke</div>
-                            <div class="member-affiliation">University of Melbourne</div>
+                            <div class="member-name">Mackenzie J Meni</div>
+                            <div class="member-affiliation">Florida Institute of Technology</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Gustavo Adolfo Cruz Suarez</div>
+                            <div class="member-affiliation">Valle del Lili, Universidad Icesi</div>
                         </div>
                         <div class="team-member">
                             <div class="member-name">Rowell Castro</div>
                             <div class="member-affiliation">MIT</div>
                         </div>
                         <div class="team-member">
-                            <div class="member-name">Maximin Lange</div>
-                            <div class="member-role">Corresponding Author</div>
-                            <div class="member-affiliation">MIT, King's College London</div>
-                            <a href="mailto:mlange2@mit.edu" class="member-email">mlange2@mit.edu</a>
+                            <div class="member-name">Roben Delos Reyes</div>
+                            <div class="member-affiliation">University of Melbourne</div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="team-category">
-                    <h3 class="team-category-title">Contributing Researchers</h3>
-                    <div class="contributors-grid">
-                        <span class="contributor-name">Gustavo Adolfo Cruz Suarez (Valle del Lili, Universidad Icesi)</span>
-                        <span class="contributor-name">Roben Delos Reyes (University of Melbourne)</span>
-                        <span class="contributor-name">Justin Engelmann (University College London)</span>
-                        <span class="contributor-name">Ari Ercole (Cambridge University Hospitals)</span>
-                        <span class="contributor-name">Almog Hilel (MIT)</span>
-                        <span class="contributor-name">Mahima Kalla (University of Melbourne)</span>
-                        <span class="contributor-name">Leo Kinyera (Mbarara University)</span>
-                        <span class="contributor-name">Torleif Markussen Lunde (University of Bergen)</span>
-                        <span class="contributor-name">Mackenzie J Meni (Technetium Engineering)</span>
-                        <span class="contributor-name">Felipe Ocampo Osorio (Valle del Lili, Universidad Icesi)</span>
-                        <span class="contributor-name">Anna E Premo (ETH Zurich)</span>
-                        <span class="contributor-name">Jana Sedlakova (University of Zurich)</span>
-                        <span class="contributor-name">Pritika Vig (MIT)</span>
+                        <div class="team-member">
+                            <div class="member-name">Janan Arslan</div>
+                            <div class="member-affiliation">Sorbonne Université, University of Melbourne</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Kurt Benke</div>
+                            <div class="member-affiliation">University of Melbourne</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Justin Engelmann</div>
+                            <div class="member-affiliation">University College London</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Ari Ercole</div>
+                            <div class="member-affiliation">Cambridge University Hospitals</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Almog Hilel</div>
+                            <div class="member-affiliation">MIT</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Mahima Kalla</div>
+                            <div class="member-affiliation">University of Melbourne</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Leo Kinyera</div>
+                            <div class="member-affiliation">Mbarara University</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Anna E Premo</div>
+                            <div class="member-affiliation">ETH Zurich</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Jana Sedlakova</div>
+                            <div class="member-affiliation">University of Zurich</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Pritika Vig</div>
+                            <div class="member-affiliation">MIT</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="institutions-section">
                     <h3 class="team-category-title">Partner Institutions</h3>
-                    <div class="institutions-grid">
-                        <div class="institution-item">
-                            <div class="inst-name">MIT</div>
-                            <div class="inst-detail">Critical Data, Laboratory for Computational Physiology</div>
+                    <div class="logos-grid">
+                        <div class="logo-item">
+                            <img src="assets/logos/logo.svg" alt="MIT Critical Data" class="institution-logo">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">Harvard</div>
-                            <div class="inst-detail">T.H. Chan School of Public Health</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/mit.png" alt="MIT" class="institution-logo logo-invert">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">Beth Israel Deaconess</div>
-                            <div class="inst-detail">Medical Center, Boston</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/harvard.png" alt="Harvard University" class="institution-logo">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">University of Melbourne</div>
-                            <div class="inst-detail">Australia</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/beth-israel.webp" alt="Beth Israel Deaconess Medical Center" class="institution-logo">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">King's College London</div>
-                            <div class="inst-detail">Institute of Psychiatry, Psychology & Neuroscience</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/melburne.png" alt="University of Melbourne" class="institution-logo">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">Sorbonne Université</div>
-                            <div class="inst-detail">Institut du Cerveau, Paris</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/sorbone-university.png" alt="Sorbonne Université" class="institution-logo">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">University College London</div>
-                            <div class="inst-detail">United Kingdom</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/ucl.jpg" alt="University College London" class="institution-logo">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">Cambridge</div>
-                            <div class="inst-detail">University Hospitals NHS Foundation Trust</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/Cambridge_University_Hospitals_NHS_FT.svg" alt="Cambridge University Hospitals" class="institution-logo">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">ETH Zurich</div>
-                            <div class="inst-detail">Switzerland</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/eth-zurish.png" alt="ETH Zürich" class="institution-logo">
                         </div>
-                        <div class="institution-item">
-                            <div class="inst-name">Valle del Lili</div>
-                            <div class="inst-detail">Fundación, Colombia</div>
+                        <div class="logo-item">
+                            <img src="assets/logos/valle-del-lili.webp" alt="Valle del Lili" class="institution-logo">
+                        </div>
+                        <div class="logo-item">
+                            <img src="assets/logos/ben-gurion.png" alt="Ben-Gurion University of the Negev" class="institution-logo">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- CODE & RESOURCES -->
         <section class="code-section" id="code">
             <div class="container">
-                <h2 class="section-title">Code & Resources</h2>
-                <p class="code-intro">Open source implementations and evaluation frameworks for the BODHI system.</p>
+                <h2 class="section-title">Code &amp; Resources</h2>
                 <div class="code-grid">
                     <div class="code-card">
                         <div class="code-icon">📦</div>
                         <h3>BODHI Python Package</h3>
                         <p>Production ready implementation of the BODHI framework. Install via pip and integrate into your clinical decision support systems.</p>
                         <div class="code-command">pip install bodhi-llm</div>
-                        <a href="https://pypi.org/project/bodhi-llm/" class="code-link" target="_blank">View on PyPI →</a>
+                        <a href="https://pypi.org/project/bodhi-llm/" class="code-link" target="_blank">View on PyPI &rarr;</a>
                     </div>
                     <div class="code-card">
                         <div class="code-icon">🔬</div>
                         <h3>Evaluation Scripts</h3>
                         <p>Complete evaluation framework for testing BODHI on HealthBench Hard and other clinical benchmarks with statistical analysis.</p>
-                        <a href="https://github.com/sebasmos/humbleai-healthbench" class="code-link" target="_blank">View on GitHub →</a>
+                        <a href="https://github.com/sebasmos/humbleai-healthbench" class="code-link" target="_blank">View on GitHub &rarr;</a>
                     </div>
                     <div class="code-card">
                         <div class="code-icon">⚡</div>
                         <h3>Curiosity Driven QMoE</h3>
                         <p>Quantized Mixture of Experts with curiosity driven routing for efficient edge deployment with stable latency.</p>
-                        <a href="https://github.com/sebasmos/curious-qmoe" class="code-link" target="_blank">View on GitHub →</a>
+                        <a href="https://github.com/sebasmos/curious-qmoe" class="code-link" target="_blank">View on GitHub &rarr;</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="cta-section">
+        <!-- CONTACT -->
+        <section class="contact-section" id="contact">
             <div class="container">
-                <h2 class="cta-title">Join Our Research</h2>
-                <p class="cta-text">
-                    We welcome collaboration with researchers, clinicians, and institutions interested in advancing safe, ethical AI for clinical decision support through epistemic humility and curiosity driven approaches.
-                </p>
-                <div class="cta-buttons">
-                    <a href="/cdn-cgi/l/email-protection#244948454a43411664494d500a414051" class="cta-button primary">Contact the Team</a>
-                    <a href="https://pypi.org/project/bodhi-llm/" class="cta-button secondary" target="_blank">Install BODHI</a>
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Interested in collaborating? We welcome researchers, clinicians, and institutions working on safe, ethical AI for clinical decision support.</p>
+                <div class="contact-grid">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Your Name</label>
+                                <input type="text" id="contactName" name="name" required placeholder="Full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Your Email</label>
+                                <input type="email" id="contactEmail" name="email" required placeholder="email@example.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" name="subject" required placeholder="How can we help?">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" name="message" rows="5" required placeholder="Tell us about your interest in BODHI..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                    <div class="contact-sidebar">
+                        <div class="sidebar-card">
+                            <h4>Install BODHI</h4>
+                            <p>Get started with the framework today.</p>
+                            <div class="code-command">pip install bodhi-llm</div>
+                            <a href="https://pypi.org/project/bodhi-llm/" class="btn btn-secondary" target="_blank">View on PyPI</a>
+                        </div>
+                        <div class="sidebar-card">
+                            <h4>Open Source</h4>
+                            <p>Contribute to BODHI on GitHub.</p>
+                            <a href="https://github.com/criticaldata/bodhi.github.io" class="btn btn-secondary" target="_blank">View Repository</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -354,18 +542,25 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <svg class="footer-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"/>
-                        <path d="M20 8 L20 32 M12 20 L28 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="20" cy="20" r="4" fill="currentColor"/>
-                    </svg>
+                    <img src="assets/fav.png" alt="BODHI Logo" class="footer-logo">
                     <div>
                         <div class="footer-title">BODHI Framework</div>
-                        <div class="footer-subtitle">MIT Critical Data & Collaborating Institutions</div>
+                        <div class="footer-subtitle">MIT Critical Data &amp; Collaborating Institutions</div>
                     </div>
                 </div>
                 <div class="footer-links">
                     <a href="https://github.com/criticaldata/bodhi.github.io" target="_blank">GitHub</a>
                     <a href="https://pypi.org/project/bodhi-llm/" target="_blank">PyPI</a>
                     <a href="#publications">Publications</a>
-                    <a href="/cdn-cgi/l/email-protection#cba6a7aaa5acaef98ba6a2b
+                    <a href="mailto:mlange2@mit.edu">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BODHI Research Group. Developed by MIT Critical Data and partner institutions worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

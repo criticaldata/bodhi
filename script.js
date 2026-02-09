@@ -73,7 +73,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe elements for animations
-document.querySelectorAll('.matrix-quadrant, .feature-card, .result-card, .publication-card, .team-member, .code-card').forEach((element, index) => {
+document.querySelectorAll('.feature-card, .module-card, .flow-step, .problem-card, .publication-card, .team-member, .code-card, .stat-item').forEach((element, index) => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(30px)';
     element.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
@@ -109,3 +109,20 @@ navToggle.addEventListener('click', () => {
         spans[2].style.transform = 'none';
     }
 });
+
+// Contact form handler
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const subject = document.getElementById('contactSubject').value;
+        const message = document.getElementById('contactMessage').value;
+        const r = ['\x6c\x63\x65\x6c\x69', '\x6d\x6c\x61\x6e\x67\x65\x32', '\x73\x65\x62\x61\x73\x6d\x6f\x73'];
+        const d = '\x6d\x69\x74\x2e\x65\x64\x75';
+        const to = r.map(function(n) { return n + '@' + d; }).join(',');
+        const body = 'From: ' + name + ' (' + email + ')\n\n' + message;
+        window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    });
+}

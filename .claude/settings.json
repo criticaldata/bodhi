@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/cajas.sebastian/Desktop/repositories/bodhi.github.io show 885d3b0:index.html)"
+    ]
+  }
+}
