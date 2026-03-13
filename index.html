@@ -1256,6 +1256,166 @@ img { max-width: 100%; display: block; }
     .stat-value { font-size: 1.85rem; }
     .stats-grid { gap: 1rem; }
 }
+
+/* ══════════════════════════════════════
+   AI COMPARISON SECTION
+   ══════════════════════════════════════ */
+.ai-comparison-section {
+    padding: 5.5rem 0;
+    background: var(--c-surface-warm);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-comparison-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 30% 60%, rgba(180,66,48,0.05) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 40%, rgba(22,128,74,0.05) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+.ai-comparison-heading {
+    font-family: var(--f-display);
+    font-size: clamp(1.85rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--c-ink);
+    margin-bottom: 1rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    position: relative;
+    text-align: center;
+}
+
+.ai-comparison-subhead {
+    font-family: var(--f-body);
+    font-size: 1.05rem;
+    color: var(--c-ink-muted);
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    line-height: 1.65;
+    position: relative;
+    text-align: center;
+}
+
+.ai-comparison-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.ai-comparison-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
+    padding: 2.5rem 3rem;
+    min-width: 230px;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-comparison-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+
+.ai-comparison-card--standard::before { background: var(--c-amber); }
+.ai-comparison-card--bodhi::before    { background: var(--c-green); }
+
+.ai-comparison-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+}
+
+.ai-comparison-card__label {
+    font-family: var(--f-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.85rem;
+    color: var(--c-ink-faint);
+}
+
+.ai-comparison-card__value {
+    font-family: var(--f-display);
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.ai-comparison-card--standard .ai-comparison-card__value { color: var(--c-amber); }
+.ai-comparison-card--bodhi    .ai-comparison-card__value { color: var(--c-green); }
+
+.ai-comparison-card__metric {
+    font-family: var(--f-body);
+    font-size: 0.875rem;
+    color: var(--c-ink-muted);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.ai-comparison-card__tag {
+    display: inline-block;
+    font-family: var(--f-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+}
+
+.ai-comparison-card--standard .ai-comparison-card__tag {
+    background: var(--c-amber-soft);
+    color: var(--c-amber);
+}
+
+.ai-comparison-card--bodhi .ai-comparison-card__tag {
+    background: var(--c-green-soft);
+    color: var(--c-green);
+}
+
+.ai-comparison-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.ai-comparison-divider__icon {
+    font-size: 1.75rem;
+    color: var(--c-ink-faint);
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .ai-comparison-grid { gap: 1.25rem; }
+    .ai-comparison-card { min-width: 200px; padding: 2rem 2.25rem; }
+    .ai-comparison-card__value { font-size: 2.75rem; }
+    .ai-comparison-divider__icon { transform: rotate(90deg); }
+}
+
+@media (max-width: 480px) {
+    .ai-comparison-card { min-width: 0; width: 100%; }
+    .ai-comparison-card__value { font-size: 2.5rem; }
+}
 </style>
 </head>
 <body>
@@ -1310,16 +1470,36 @@ img { max-width: 100%; display: block; }
             </div>
         </section>
 
+        <!-- AI COMPARISON SECTION -->
+        <section class="ai-comparison-section">
+            <div class="container">
+                <h2 class="ai-comparison-heading reveal"><strong>Don't let AI guess with patient lives.</strong></h2>
+                <p class="ai-comparison-subhead reveal">Most medical AI is sycophantic and overconfident. BODHI is an open-source framework that forces LLMs to ask questions, admit uncertainty, and recognize their limits.</p>
+                <div class="ai-comparison-grid">
+                    <div class="ai-comparison-card ai-comparison-card--standard reveal">
+                        <div class="ai-comparison-card__label">Standard AI</div>
+                        <div class="ai-comparison-card__value">7.8%</div>
+                        <div class="ai-comparison-card__metric">Clarifying Questions</div>
+                        <div class="ai-comparison-card__tag">Guessing</div>
+                    </div>
+                    <div class="ai-comparison-divider reveal">
+                        <span class="ai-comparison-divider__icon">&#8594;</span>
+                    </div>
+                    <div class="ai-comparison-card ai-comparison-card--bodhi reveal">
+                        <div class="ai-comparison-card__label">BODHI AI</div>
+                        <div class="ai-comparison-card__value">97.3%</div>
+                        <div class="ai-comparison-card__metric">Clarifying Questions</div>
+                        <div class="ai-comparison-card__tag">Inquiring</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- STATS BAR -->
         <section class="stats-bar">
             <div class="container">
                 <div class="stats-label">Preliminary results from BODHI's prompting implementation on HealthBench Hard</div>
                 <div class="stats-grid">
-                    <div class="stat-item reveal">
-                        <div class="stat-value">7.8% &rarr; 97.3%</div>
-                        <div class="stat-label">Context Seeking Improvement</div>
-                        <div class="stat-detail">GPT 4.1 mini on HealthBench Hard</div>
-                    </div>
                     <div class="stat-item reveal">
                         <div class="stat-value">+16.6%</div>
                         <div class="stat-label">Overall Clinical Quality</div>
@@ -1414,9 +1594,49 @@ img { max-width: 100%; display: block; }
                 <h2 class="section-title reveal">Virtue Activation Matrix</h2>
                 <p class="section-subtitle reveal">Central to BODHI's design principles: four quadrants organize behavioral responses based on the interplay between uncertainty and clinical stakes.</p>
                 <figure class="matrix-figure reveal">
-                    <a href="https://www.medrxiv.org/content/10.64898/2026.02.06.26345664v1" target="_blank">
+                    <div class="matrix-wrapper">
                         <img src="assets/fig1.png" alt="Virtue Activation Matrix mapping clinical complexity against model confidence" class="matrix-image" loading="lazy">
-                    </a>
+                        <!-- Q1: high confidence / low complexity (top-left) -->
+                        <button class="matrix-quadrant matrix-q1"
+                                id="matrix-q1"
+                                aria-label="Q1 (high confidence / low complexity): Proceed with a clear, concrete recommendation. Add 1–2 things to monitor and when to reassess if new information appears."
+                                aria-describedby="tooltip-q1">
+                            <span class="matrix-tooltip" role="tooltip" id="tooltip-q1">
+                                <strong>Q1 &middot; High confidence / Low complexity</strong>
+                                Proceed with a clear, concrete recommendation. Add 1&ndash;2 things to monitor and when to reassess if new information appears.
+                            </span>
+                        </button>
+                        <!-- Q2: high confidence / high complexity (top-right) -->
+                        <button class="matrix-quadrant matrix-q2"
+                                id="matrix-q2"
+                                aria-label="Q2 (high confidence / high complexity): Recommend a primary plan, but keep alternatives in view. State what findings would make you switch paths and which signs require escalation."
+                                aria-describedby="tooltip-q2">
+                            <span class="matrix-tooltip" role="tooltip" id="tooltip-q2">
+                                <strong>Q2 &middot; High confidence / High complexity</strong>
+                                Recommend a primary plan, but keep alternatives in view. State what findings would make you switch paths and which signs require escalation.
+                            </span>
+                        </button>
+                        <!-- Q3: low confidence / low complexity (bottom-left) -->
+                        <button class="matrix-quadrant matrix-q3"
+                                id="matrix-q3"
+                                aria-label="Q3 (low confidence / low complexity): Before concluding, ask 1–2 key questions. Explain what's missing, why it matters, and give a provisional step conditional on the answer."
+                                aria-describedby="tooltip-q3">
+                            <span class="matrix-tooltip" role="tooltip" id="tooltip-q3">
+                                <strong>Q3 &middot; Low confidence / Low complexity</strong>
+                                Before concluding, ask 1&ndash;2 key questions. Explain what&rsquo;s missing, why it matters, and give a provisional step conditional on the answer.
+                            </span>
+                        </button>
+                        <!-- Q4: low confidence / high complexity (bottom-right) -->
+                        <button class="matrix-quadrant matrix-q4"
+                                id="matrix-q4"
+                                aria-label="Q4 (low confidence / high complexity): Don't assume: acknowledge limits and escalate. Ask for critical data, suggest who/where to refer, and provide safe steps + red flags."
+                                aria-describedby="tooltip-q4">
+                            <span class="matrix-tooltip" role="tooltip" id="tooltip-q4">
+                                <strong>Q4 &middot; Low confidence / High complexity</strong>
+                                Don&rsquo;t assume: acknowledge limits and escalate. Ask for critical data, suggest who/where to refer, and provide safe steps + red flags.
+                            </span>
+                        </button>
+                    </div>
                     <figcaption class="matrix-caption">
                         Virtue Activation Matrix mapping clinical complexity against model confidence. Q1 (Proceed &amp; Monitor): routine cases with high confidence. Q2 (Watchful &amp; Alternatives): complex cases requiring situational awareness. Q3 (Clarify &amp; Review): uncertain cases needing high curiosity and epistemic humility. Q4 (Escalate &amp; Reframe): high stakes uncertainty demanding explicit escalation to human expertise. <a href="https://www.medrxiv.org/content/10.64898/2026.02.06.26345664v1" target="_blank" class="caption-link">Read More &rarr;</a>
                     </figcaption>
