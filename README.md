@@ -37,7 +37,7 @@ BODHI is expanding into a modular platform. Current research branches:
 | Sycophancy Detection | Validated | Anti-sycophancy measures, agreement bias reduction, independent reasoning |
 | Creativity | In Development | Novel hypothesis generation, divergent thinking, QMoE |
 
-We welcome collaborators for any module. Contact us to get involved.
+We welcome collaborators for any module. Reach out to get involved (see Contact below).
 
 ## Resources
 
@@ -61,7 +61,11 @@ We welcome collaborators for any module. Contact us to get involved.
 
 ## Contact
 
-For collaboration inquiries, reach us through the [contact form](https://criticaldata.github.io/bodhi#contact) on our website.
+For collaboration inquiries, reach out to us directly:
+
+- **Leo Anthony Celi** — [Google Scholar](https://scholar.google.com/citations?user=kssA7YwAAAAJ&hl=en)
+- **Maximin Lange** — [mlange2@mit.edu](mailto:mlange2@mit.edu)
+- **Sebastián Andrés Cajas Ordoñez** — [sebasmos@mit.edu](mailto:sebasmos@mit.edu)
 
 ## License
 

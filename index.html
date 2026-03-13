@@ -217,10 +217,17 @@ img { max-width: 100%; display: block; }
     pointer-events: none;
 }
 
-.hero-content {
+.hero-inner {
     position: relative;
     z-index: 1;
-    max-width: 720px;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+    min-width: 0;
 }
 
 .hero-title {
@@ -649,6 +656,68 @@ img { max-width: 100%; display: block; }
 }
 .caption-link:hover { text-decoration: underline; }
 
+/* Matrix interactive overlay */
+.matrix-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.matrix-quadrant {
+    position: absolute;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    padding: 0;
+}
+
+.matrix-quadrant:hover,
+.matrix-quadrant:focus-visible {
+    background: rgba(180, 66, 48, 0.08);
+    border-color: var(--c-accent);
+}
+
+.matrix-q1 { top: 8%; left: 4%; width: 46%; height: 42%; }
+.matrix-q2 { top: 8%; right: 4%; width: 46%; height: 42%; }
+.matrix-q3 { bottom: 8%; left: 4%; width: 46%; height: 42%; }
+.matrix-q4 { bottom: 8%; right: 4%; width: 46%; height: 42%; }
+
+.matrix-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--c-ink);
+    color: white;
+    padding: 1rem 1.25rem;
+    border-radius: var(--r-md);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    text-align: left;
+    width: 280px;
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.matrix-tooltip strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.9);
+}
+
+.matrix-quadrant:hover .matrix-tooltip,
+.matrix-quadrant:focus-visible .matrix-tooltip {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .matrix-tooltip { width: 220px; font-size: 0.75rem; padding: 0.75rem 1rem; }
+}
+
 /* ══════════════════════════════════════
    RESEARCH MODULES
    ══════════════════════════════════════ */
@@ -969,6 +1038,18 @@ img { max-width: 100%; display: block; }
 
 .member-email:hover { text-decoration: underline; }
 
+.member-scholar {
+    color: var(--c-blue);
+    font-size: 0.78rem;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0.25rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.member-scholar:hover { color: var(--c-ink); text-decoration: underline; }
+
 /* Logo strip */
 .logos-grid {
     display: flex;
@@ -1229,6 +1310,12 @@ img { max-width: 100%; display: block; }
     .nav-toggle { display: flex; }
     .nav-link { padding: 0.75rem 1rem; width: 100%; border-radius: var(--r-sm); }
 
+    .hero-inner { flex-direction: column; gap: 2.5rem; }
+    .hero-proof { width: 100%; flex-direction: row; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .hero-proof-tagline { width: 100%; }
+    .ai-comparison-card { flex: 1; min-width: 160px; }
+    .ai-comparison-divider__icon { transform: none; }
+
     .hero-title { font-size: 2.75rem; }
     .section-title { font-size: 2rem; }
 
@@ -1253,73 +1340,47 @@ img { max-width: 100%; display: block; }
 @media (max-width: 480px) {
     .container { padding: 0 1.25rem; }
     .hero-title { font-size: 2.25rem; }
+    .hero-proof { flex-direction: column; }
+    .ai-comparison-card { min-width: 0; width: 100%; }
+    .ai-comparison-card__value { font-size: 2.25rem; }
+    .ai-comparison-divider__icon { transform: rotate(90deg); }
     .stat-value { font-size: 1.85rem; }
     .stats-grid { gap: 1rem; }
 }
 
 /* ══════════════════════════════════════
-   AI COMPARISON SECTION
+   HERO COMPARISON PANEL (right side)
    ══════════════════════════════════════ */
-.ai-comparison-section {
-    padding: 5.5rem 0;
-    background: var(--c-surface-warm);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+.hero-proof {
+    flex-shrink: 0;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s var(--ease-out) 1.35s forwards;
 }
 
-.ai-comparison-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse at 30% 60%, rgba(180,66,48,0.05) 0%, transparent 55%),
-        radial-gradient(ellipse at 70% 40%, rgba(22,128,74,0.05) 0%, transparent 55%);
-    pointer-events: none;
-}
-
-.ai-comparison-heading {
+.hero-proof-tagline {
     font-family: var(--f-display);
-    font-size: clamp(1.85rem, 3.5vw, 2.6rem);
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--c-ink);
-    margin-bottom: 1rem;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-    position: relative;
+    line-height: 1.3;
     text-align: center;
-}
-
-.ai-comparison-subhead {
-    font-family: var(--f-body);
-    font-size: 1.05rem;
-    color: var(--c-ink-muted);
-    max-width: 640px;
-    margin: 0 auto 3rem;
-    line-height: 1.65;
-    position: relative;
-    text-align: center;
-}
-
-.ai-comparison-grid {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    position: relative;
+    margin-bottom: 0.25rem;
 }
 
 .ai-comparison-card {
     background: var(--c-surface);
     border: 1px solid var(--c-border);
     border-radius: var(--r-lg);
-    padding: 2.5rem 3rem;
-    min-width: 230px;
+    padding: 1.5rem 1.75rem;
     box-shadow: var(--shadow-md);
     transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
 
 .ai-comparison-card::before {
@@ -1335,27 +1396,27 @@ img { max-width: 100%; display: block; }
 .ai-comparison-card--bodhi::before    { background: var(--c-green); }
 
 .ai-comparison-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
     border-color: transparent;
 }
 
 .ai-comparison-card__label {
     font-family: var(--f-body);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.5rem;
     color: var(--c-ink-faint);
 }
 
 .ai-comparison-card__value {
     font-family: var(--f-display);
-    font-size: 3.5rem;
+    font-size: 2.75rem;
     font-weight: 700;
     line-height: 1;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
     letter-spacing: -0.02em;
 }
 
@@ -1364,20 +1425,20 @@ img { max-width: 100%; display: block; }
 
 .ai-comparison-card__metric {
     font-family: var(--f-body);
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--c-ink-muted);
-    margin-bottom: 1rem;
+    margin-bottom: 0.65rem;
     font-weight: 500;
 }
 
 .ai-comparison-card__tag {
     display: inline-block;
     font-family: var(--f-body);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    padding: 0.3rem 0.9rem;
+    padding: 0.25rem 0.75rem;
     border-radius: 20px;
 }
 
@@ -1395,26 +1456,13 @@ img { max-width: 100%; display: block; }
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 0.35rem;
 }
 
 .ai-comparison-divider__icon {
-    font-size: 1.75rem;
+    font-size: 1.35rem;
     color: var(--c-ink-faint);
     line-height: 1;
-}
-
-@media (max-width: 768px) {
-    .ai-comparison-grid { gap: 1.25rem; }
-    .ai-comparison-card { min-width: 200px; padding: 2rem 2.25rem; }
-    .ai-comparison-card__value { font-size: 2.75rem; }
-    .ai-comparison-divider__icon { transform: rotate(90deg); }
-}
-
-@media (max-width: 480px) {
-    .ai-comparison-card { min-width: 0; width: 100%; }
-    .ai-comparison-card__value { font-size: 2.5rem; }
+    transform: rotate(90deg);
 }
 </style>
 </head>
@@ -1447,49 +1495,44 @@ img { max-width: 100%; display: block; }
         <!-- HERO -->
         <section class="hero-section" id="home">
             <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">
-                        <span class="title-letters"><span class="letter" style="--i:0">B</span><span class="letter" style="--i:1">O</span><span class="letter" style="--i:2">D</span><span class="letter" style="--i:3">H</span><span class="letter" style="--i:4">I</span></span>
-                        <span class="title-word">Framework</span>
-                    </h1>
-                    <div class="hero-acronym">
-                        <span><strong>B</strong>ridging</span>
-                        <span><strong>O</strong>pen</span>
-                        <span><strong>D</strong>iscerning</span>
-                        <span><strong>H</strong>umble</span>
-                        <span><strong>I</strong>nquiring</span>
+                <div class="hero-inner">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            <span class="title-letters"><span class="letter" style="--i:0">B</span><span class="letter" style="--i:1">O</span><span class="letter" style="--i:2">D</span><span class="letter" style="--i:3">H</span><span class="letter" style="--i:4">I</span></span>
+                            <span class="title-word">Framework</span>
+                        </h1>
+                        <div class="hero-acronym">
+                            <span><strong>B</strong>ridging</span>
+                            <span><strong>O</strong>pen</span>
+                            <span><strong>D</strong>iscerning</span>
+                            <span><strong>H</strong>umble</span>
+                            <span><strong>I</strong>nquiring</span>
+                        </div>
+                        <p class="hero-description">
+                            A systems design framework that reimagines medical AI as an epistemic agent: one that questions assumptions, reasons under uncertainty, and recognizes the boundaries of its own knowledge.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="#framework" class="btn btn-primary">Explore the Framework</a>
+                            <a href="https://pypi.org/project/bodhi-llm/" class="btn btn-secondary" target="_blank">pip install bodhi-llm</a>
+                        </div>
                     </div>
-                    <p class="hero-description">
-                        A systems design framework that reimagines medical AI as an epistemic agent: one that questions assumptions, reasons under uncertainty, and recognizes the boundaries of its own knowledge.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#framework" class="btn btn-primary">Explore the Framework</a>
-                        <a href="https://pypi.org/project/bodhi-llm/" class="btn btn-secondary" target="_blank">pip install bodhi-llm</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- AI COMPARISON SECTION -->
-        <section class="ai-comparison-section">
-            <div class="container">
-                <h2 class="ai-comparison-heading reveal"><strong>Don't let AI guess with patient lives.</strong></h2>
-                <p class="ai-comparison-subhead reveal">Most medical AI is sycophantic and overconfident. BODHI is an open-source framework that forces LLMs to ask questions, admit uncertainty, and recognize their limits.</p>
-                <div class="ai-comparison-grid">
-                    <div class="ai-comparison-card ai-comparison-card--standard reveal">
-                        <div class="ai-comparison-card__label">Standard AI</div>
-                        <div class="ai-comparison-card__value">7.8%</div>
-                        <div class="ai-comparison-card__metric">Clarifying Questions</div>
-                        <div class="ai-comparison-card__tag">Guessing</div>
-                    </div>
-                    <div class="ai-comparison-divider reveal">
-                        <span class="ai-comparison-divider__icon">&#8594;</span>
-                    </div>
-                    <div class="ai-comparison-card ai-comparison-card--bodhi reveal">
-                        <div class="ai-comparison-card__label">BODHI AI</div>
-                        <div class="ai-comparison-card__value">97.3%</div>
-                        <div class="ai-comparison-card__metric">Clarifying Questions</div>
-                        <div class="ai-comparison-card__tag">Inquiring</div>
+                    <div class="hero-proof">
+                        <div class="hero-proof-tagline">Don't let AI guess with patient lives.</div>
+                        <div class="ai-comparison-card ai-comparison-card--standard">
+                            <div class="ai-comparison-card__label">Standard AI</div>
+                            <div class="ai-comparison-card__value">7.8%</div>
+                            <div class="ai-comparison-card__metric">Clarifying Questions</div>
+                            <div class="ai-comparison-card__tag">Guessing</div>
+                        </div>
+                        <div class="ai-comparison-divider">
+                            <span class="ai-comparison-divider__icon">&#8595;</span>
+                        </div>
+                        <div class="ai-comparison-card ai-comparison-card--bodhi">
+                            <div class="ai-comparison-card__label">BODHI AI</div>
+                            <div class="ai-comparison-card__value">97.3%</div>
+                            <div class="ai-comparison-card__metric">Clarifying Questions</div>
+                            <div class="ai-comparison-card__tag">Inquiring</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1780,7 +1823,7 @@ img { max-width: 100%; display: block; }
                             <div class="member-name">Leo Anthony Celi</div>
                             <div class="member-role">Principal Investigator</div>
                             <div class="member-affiliation">MIT, Beth Israel Deaconess, Harvard</div>
-                            <a href="mailto:lceli@mit.edu" class="member-email">lceli@mit.edu</a>
+                            <a href="https://scholar.google.com/citations?user=kssA7YwAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -1789,23 +1832,23 @@ img { max-width: 100%; display: block; }
                     <h3 class="team-category-title">Multidisciplinary Team Researchers</h3>
                     <div class="team-grid">
                         <div class="team-member reveal"><div class="member-name">Torleif Markussen Lunde</div><div class="member-affiliation">University of Bergen</div></div>
-                        <div class="team-member reveal"><div class="member-name">Maximin Lange</div><div class="member-affiliation">MIT, King's College London</div></div>
-                        <div class="team-member reveal"><div class="member-name">Felipe Ocampo Osorio</div><div class="member-affiliation">Fundación Valle del Lili, Universidad Icesi</div></div>
+                        <div class="team-member reveal"><div class="member-name">Maximin Lange</div><div class="member-affiliation">MIT, King's College London</div><a href="https://scholar.google.com/citations?user=jr94U6AAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
+                        <div class="team-member reveal"><div class="member-name">Felipe Ocampo Osorio</div><div class="member-affiliation">Fundación Valle del Lili, Universidad Icesi</div><a href="https://scholar.google.com/citations?user=LxCQrb4AAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
                         <div class="team-member reveal"><div class="member-name">Oriel Perets</div><div class="member-affiliation">Ben-Gurion University of the Negev</div></div>
-                        <div class="team-member reveal"><div class="member-name">Sebastián Andrés Cajas Ordoñez</div><div class="member-affiliation">MIT Critical Data</div></div>
+                        <div class="team-member reveal"><div class="member-name">Sebastián Andrés Cajas Ordoñez</div><div class="member-affiliation">MIT Critical Data</div><a href="https://scholar.google.com/citations?user=j1aZ9oYAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
                         <div class="team-member reveal"><div class="member-name">Mackenzie J Meni</div><div class="member-affiliation">Florida Institute of Technology</div></div>
-                        <div class="team-member reveal"><div class="member-name">Gustavo Adolfo Cruz Suarez</div><div class="member-affiliation">Fundación Valle del Lili, Universidad Icesi</div></div>
-                        <div class="team-member reveal"><div class="member-name">Rowell Castro</div><div class="member-affiliation">MIT</div></div>
-                        <div class="team-member reveal"><div class="member-name">Roben Delos Reyes</div><div class="member-affiliation">University of Melbourne</div></div>
-                        <div class="team-member reveal"><div class="member-name">Janan Arslan</div><div class="member-affiliation">Sorbonne Université, University of Melbourne</div></div>
+                        <div class="team-member reveal"><div class="member-name">Gustavo Adolfo Cruz Suarez</div><div class="member-affiliation">Fundación Valle del Lili, Universidad Icesi</div><a href="https://scholar.google.com/citations?hl=es&user=mmOzqCIAAAAJ" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
+                        <div class="team-member reveal"><div class="member-name">Rowell Castro</div><div class="member-affiliation">MIT</div><a href="https://scholar.google.com/citations?user=ERUjnUQAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
+                        <div class="team-member reveal"><div class="member-name">Roben Delos Reyes</div><div class="member-affiliation">University of Melbourne</div><a href="https://scholar.google.com/citations?user=TpfmYBwAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
+                        <div class="team-member reveal"><div class="member-name">Janan Arslan</div><div class="member-affiliation">Sorbonne Université, University of Melbourne</div><a href="https://scholar.google.com/citations?user=1U8nUzIAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
                         <div class="team-member reveal"><div class="member-name">Kurt Benke</div><div class="member-affiliation">University of Melbourne</div></div>
-                        <div class="team-member reveal"><div class="member-name">Justin Engelmann</div><div class="member-affiliation">University College London</div></div>
-                        <div class="team-member reveal"><div class="member-name">Ari Ercole</div><div class="member-affiliation">Cambridge University Hospitals</div></div>
-                        <div class="team-member reveal"><div class="member-name">Almog Hilel</div><div class="member-affiliation">MIT</div></div>
+                        <div class="team-member reveal"><div class="member-name">Justin Engelmann</div><div class="member-affiliation">University College London</div><a href="https://scholar.google.com/citations?user=ckuoXnYAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
+                        <div class="team-member reveal"><div class="member-name">Ari Ercole</div><div class="member-affiliation">Cambridge University Hospitals</div><a href="https://scholar.google.com/citations?user=7k2LuTkAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
+                        <div class="team-member reveal"><div class="member-name">Almog Hilel</div><div class="member-affiliation">MIT</div><a href="https://scholar.google.com/citations?hl=en&user=Gfu1F0UAAAAJ" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
                         <div class="team-member reveal"><div class="member-name">Mahima Kalla</div><div class="member-affiliation">University of Melbourne</div></div>
-                        <div class="team-member reveal"><div class="member-name">Leo Kinyera</div><div class="member-affiliation">Mbarara University</div></div>
-                        <div class="team-member reveal"><div class="member-name">Anna E Premo</div><div class="member-affiliation">ETH Zurich</div></div>
-                        <div class="team-member reveal"><div class="member-name">Jana Sedlakova</div><div class="member-affiliation">University of Zurich</div></div>
+                        <div class="team-member reveal"><div class="member-name">Leo Kinyera</div><div class="member-affiliation">Mbarara University</div><a href="https://scholar.google.com/citations?user=2bYjXS0AAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
+                        <div class="team-member reveal"><div class="member-name">Anna E Premo</div><div class="member-affiliation">ETH Zurich</div><a href="https://scholar.google.com/citations?user=8sg6AfEAAAAJ&hl=en&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
+                        <div class="team-member reveal"><div class="member-name">Jana Sedlakova</div><div class="member-affiliation">University of Zurich</div><a href="https://scholar.google.com/citations?user=X880FsoAAAAJ&hl=de" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
                         <div class="team-member reveal"><div class="member-name">Pritika Vig</div><div class="member-affiliation">MIT</div></div>
                     </div>
                 </div>
