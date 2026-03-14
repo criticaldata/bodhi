@@ -1050,6 +1050,24 @@ img { max-width: 100%; display: block; }
 
 .member-scholar:hover { color: var(--c-ink); text-decoration: underline; }
 
+/* Team member photos: uniform size and styling */
+.member-photo {
+    width: 92px;
+    height: 92px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin-bottom: 0.6rem;
+}
+
+/* Keep Felipe's head visible (prefer the top of the photo) */
+.member-photo.felipe {
+    object-position: top center;
+}
+
+/* Ensure photo and text stack nicely on small cards */
+.team-member { text-align: left; }
+
 /* Logo strip */
 .logos-grid {
     display: flex;
@@ -1820,6 +1838,7 @@ img { max-width: 100%; display: block; }
                     <h3 class="team-category-title">Principal Investigator</h3>
                     <div class="team-grid">
                         <div class="team-member highlighted reveal">
+                            <img src="assets/Photos/LeoCeli.jpg" alt="Leo Anthony Celi" class="member-photo" loading="lazy">
                             <div class="member-name">Leo Anthony Celi</div>
                             <div class="member-role">Principal Investigator</div>
                             <div class="member-affiliation">MIT, Beth Israel Deaconess, Harvard</div>
@@ -1831,26 +1850,137 @@ img { max-width: 100%; display: block; }
                 <div class="team-category">
                     <h3 class="team-category-title">Multidisciplinary Team Researchers</h3>
                     <div class="team-grid">
-                        <div class="team-member reveal"><div class="member-name">Torleif Markussen Lunde</div><div class="member-affiliation">University of Bergen</div><a href="https://scholar.google.com/citations?user=ls2oCtAAAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Maximin Lange</div><div class="member-affiliation">MIT, King's College London</div><a href="https://scholar.google.com/citations?user=jr94U6AAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Felipe Ocampo Osorio</div><div class="member-affiliation">Fundación Valle del Lili, Universidad Icesi</div><a href="https://scholar.google.com/citations?user=LxCQrb4AAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Oriel Perets</div><div class="member-affiliation">Ben-Gurion University of the Negev</div><a href="https://scholar.google.com/citations?user=rcTaaxcAAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Sebastián Andrés Cajas Ordoñez</div><div class="member-affiliation">MIT Critical Data</div><a href="https://scholar.google.com/citations?user=j1aZ9oYAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Mackenzie J Meni</div><div class="member-affiliation">Florida Institute of Technology</div><a href="https://scholar.google.com/citations?user=xqI10uUAAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Gustavo Adolfo Cruz Suarez</div><div class="member-affiliation">Fundación Valle del Lili, Universidad Icesi</div><a href="https://scholar.google.com/citations?hl=es&user=mmOzqCIAAAAJ" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Rowell Castro</div><div class="member-affiliation">MIT</div><a href="https://scholar.google.com/citations?user=ERUjnUQAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Roben Delos Reyes</div><div class="member-affiliation">University of Melbourne</div><a href="https://scholar.google.com/citations?user=TpfmYBwAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Janan Arslan</div><div class="member-affiliation">Sorbonne Université, University of Melbourne</div><a href="https://scholar.google.com/citations?user=1U8nUzIAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Kurt Benke</div><div class="member-affiliation">University of Melbourne</div></div>
-                        <div class="team-member reveal"><div class="member-name">Justin Engelmann</div><div class="member-affiliation">University College London</div><a href="https://scholar.google.com/citations?user=ckuoXnYAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Ari Ercole</div><div class="member-affiliation">Cambridge University Hospitals</div><a href="https://scholar.google.com/citations?user=7k2LuTkAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Almog Hilel</div><div class="member-affiliation">MIT</div><a href="https://scholar.google.com/citations?hl=en&user=Gfu1F0UAAAAJ" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Mahima Kalla</div><div class="member-affiliation">University of Melbourne</div><a href="https://scholar.google.com/citations?user=babE_oMAAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Leo Kinyera</div><div class="member-affiliation">Mbarara University</div><a href="https://scholar.google.com/citations?user=2bYjXS0AAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Anna E Premo</div><div class="member-affiliation">ETH Zurich</div><a href="https://scholar.google.com/citations?user=8sg6AfEAAAAJ&hl=en&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Jana Sedlakova</div><div class="member-affiliation">University of Oxford</div><a href="https://scholar.google.com/citations?user=X880FsoAAAAJ&hl=de" class="member-scholar" target="_blank">Google Scholar &rarr;</a></div>
-                        <div class="team-member reveal"><div class="member-name">Pritika Vig</div><div class="member-affiliation">MIT</div><a href="https://scholar.google.com/citations?user=sDm5eS0AAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
-                    </div>
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/TorleifMarkussen.JPG" alt="Torleif Markussen Lunde" class="member-photo" loading="lazy">
+                            <div class="member-name">Torleif Markussen Lunde</div>
+                            <div class="member-affiliation">University of Bergen</div>
+                            <a href="https://scholar.google.com/citations?user=ls2oCtAAAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/MaximinLange.JPG" alt="Maximin Lange" class="member-photo" loading="lazy">
+                            <div class="member-name">Maximin Lange</div>
+                            <div class="member-affiliation">MIT, King's College London</div>
+                            <a href="https://scholar.google.com/citations?user=jr94U6AAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/FelipeOcampo.JPG" alt="Felipe Ocampo Osorio" class="member-photo felipe" loading="lazy">
+                            <div class="member-name">Felipe Ocampo Osorio</div>
+                            <div class="member-affiliation">Fundación Valle del Lili, Universidad Icesi</div>
+                            <a href="https://scholar.google.com/citations?user=LxCQrb4AAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/OrielPerets.JPG" alt="Oriel Perets" class="member-photo" loading="lazy">
+                            <div class="member-name">Oriel Perets</div>
+                            <div class="member-affiliation">Ben-Gurion University of the Negev</div>
+                            <a href="https://scholar.google.com/citations?user=rcTaaxcAAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/SebastianCajas.JPG" alt="Sebastián Andrés Cajas Ordoñez" class="member-photo" loading="lazy">
+                            <div class="member-name">Sebastián Andrés Cajas Ordoñez</div>
+                            <div class="member-affiliation">MIT Critical Data</div>
+                            <a href="https://scholar.google.com/citations?user=j1aZ9oYAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/MackenzieMeni.JPG" alt="Mackenzie J Meni" class="member-photo" loading="lazy">
+                            <div class="member-name">Mackenzie J Meni</div>
+                            <div class="member-affiliation">Florida Institute of Technology</div>
+                            <a href="https://scholar.google.com/citations?user=xqI10uUAAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/GustavoCruz.JPG" alt="Gustavo Adolfo Cruz Suarez" class="member-photo" loading="lazy">
+                            <div class="member-name">Gustavo Adolfo Cruz Suarez</div>
+                            <div class="member-affiliation">Fundación Valle del Lili, Universidad Icesi</div>
+                            <a href="https://scholar.google.com/citations?hl=es&user=mmOzqCIAAAAJ" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/Rowell%20Castro.jpg" alt="Rowell Castro" class="member-photo" loading="lazy">
+                            <div class="member-name">Rowell Castro</div>
+                            <div class="member-affiliation">MIT</div>
+                            <a href="https://scholar.google.com/citations?user=ERUjnUQAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/Roben%20DelosReyes.JPG" alt="Roben Delos Reyes" class="member-photo" loading="lazy">
+                            <div class="member-name">Roben Delos Reyes</div>
+                            <div class="member-affiliation">University of Melbourne</div>
+                            <a href="https://scholar.google.com/citations?user=TpfmYBwAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/ARSLAN-Janan-profile.jpg" alt="Janan Arslan" class="member-photo" loading="lazy">
+                            <div class="member-name">Janan Arslan</div>
+                            <div class="member-affiliation">Sorbonne Université, University of Melbourne</div>
+                            <a href="https://scholar.google.com/citations?user=1U8nUzIAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <div class="member-name">Kurt Benke</div>
+                            <div class="member-affiliation">University of Melbourne</div>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/Justin%20Engelmann.png" alt="Justin Engelmann" class="member-photo" loading="lazy">
+                            <div class="member-name">Justin Engelmann</div>
+                            <div class="member-affiliation">University College London</div>
+                            <a href="https://scholar.google.com/citations?user=ckuoXnYAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/Ari%20ERCOLE.jpg" alt="Ari Ercole" class="member-photo" loading="lazy">
+                            <div class="member-name">Ari Ercole</div>
+                            <div class="member-affiliation">Cambridge University Hospitals</div>
+                            <a href="https://scholar.google.com/citations?user=7k2LuTkAAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/almog.jpg" alt="Almog Hilel" class="member-photo" loading="lazy">
+                            <div class="member-name">Almog Hilel</div>
+                            <div class="member-affiliation">MIT</div>
+                            <a href="https://scholar.google.com/citations?hl=en&user=Gfu1F0UAAAAJ" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/Mahima-Kalla.jpg" alt="Mahima Kalla" class="member-photo" loading="lazy">
+                            <div class="member-name">Mahima Kalla</div>
+                            <div class="member-affiliation">University of Melbourne</div>
+                            <a href="https://scholar.google.com/citations?user=babE_oMAAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/leoKinyera.png" alt="Leo Kinyera" class="member-photo" loading="lazy">
+                            <div class="member-name">Leo Kinyera</div>
+                            <div class="member-affiliation">Mbarara University</div>
+                            <a href="https://scholar.google.com/citations?user=2bYjXS0AAAAJ&hl=en" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/AnnaPremo.JPG" alt="Anna E Premo" class="member-photo" loading="lazy">
+                            <div class="member-name">Anna E Premo</div>
+                            <div class="member-affiliation">ETH Zurich</div>
+                            <a href="https://scholar.google.com/citations?user=8sg6AfEAAAAJ&hl=en&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/JanaSedlakova.png" alt="Jana Sedlakova" class="member-photo" loading="lazy">
+                            <div class="member-name">Jana Sedlakova</div>
+                            <div class="member-affiliation">University of Oxford</div>
+                            <a href="https://scholar.google.com/citations?user=X880FsoAAAAJ&hl=de" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+
+                        <div class="team-member reveal">
+                            <img src="assets/Photos/PritikaVig.JPG" alt="Pritika Vig" class="member-photo" loading="lazy">
+                            <div class="member-name">Pritika Vig</div>
+                            <div class="member-affiliation">MIT</div>
+                            <a href="https://scholar.google.com/citations?user=sDm5eS0AAAAJ&hl=es&oi=ao" class="member-scholar" target="_blank">Google Scholar &rarr;</a>
+                        </div>
+                         </div>
                 </div>
 
                 <div class="institutions-section">
