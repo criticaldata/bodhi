@@ -837,6 +837,43 @@ img { max-width: 100%; display: block; }
 }
 
 /* ══════════════════════════════════════
+   NEWS BAR
+   ══════════════════════════════════════ */
+.news-bar {
+    background: var(--c-blue-soft);
+    border-bottom: 1px solid #bfdbfe;
+    padding: 0.65rem 0;
+}
+.news-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.news-bar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-blue);
+    background: #dbeafe;
+    border-radius: 4px;
+    padding: 0.2rem 0.55rem;
+    white-space: nowrap;
+}
+.news-bar-link {
+    font-size: 0.875rem;
+    color: var(--c-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.news-bar-link:hover {
+    color: #1e40af;
+    text-decoration: underline;
+}
+
+/* ══════════════════════════════════════
    PUBLICATIONS
    ══════════════════════════════════════ */
 .publications-section {
@@ -1555,6 +1592,18 @@ img { max-width: 100%; display: block; }
                 </div>
             </div>
         </section>
+
+        <!-- NEWS BAR -->
+        <div class="news-bar">
+            <div class="container">
+                <div class="news-bar-inner">
+                    <span class="news-bar-label">In the News</span>
+                    <a href="https://news.mit.edu/2026/creating-humble-ai-0324" class="news-bar-link" target="_blank" rel="noopener">
+                        MIT News: Creating humble AI &mdash; research aligned with BODHI's epistemic design principles &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <!-- STATS BAR -->
         <section class="stats-bar">
