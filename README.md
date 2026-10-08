@@ -28,7 +28,7 @@ pip install bodhi-llm
 ## Publications
 
 - [ModaLens: Measuring Image Sensitivity in Report-Conditioned Medical VLMs](https://arxiv.org/abs/2609.15635) (arXiv, 2026)
-- [Towards a Deterministic Math Solver for Clinical Language Models](https://arxiv.org/abs/2609.10728) (NeurIPS Global South CV, accepted; arXiv, 2026)
+- [Towards a Deterministic Math Solver for Clinical Language Models](https://arxiv.org/abs/2609.10728) (NeurIPS Global South CV Workshop, accepted; arXiv, 2026)
 - [Beyond Overconfidence: Embedding Curiosity and Humility for Ethical Medical AI](https://doi.org/10.1371/journal.pdig.0001013) (PLOS Digital Health, 2026)
 - [An Engineering Framework for Curiosity Driven and Humble AI in Clinical Decision Support](https://www.medrxiv.org/content/10.64898/2026.02.06.26345664v1) (BMJ Health & Care Informatics, 2026)
 - [Humility and Curiosity in Human-AI Systems for Health Care](https://doi.org/10.1016/S0140-6736(25)01626-5) (The Lancet, 2025)
@@ -37,9 +37,9 @@ pip install bodhi-llm
 
 ## Contact
 
-- Leo Anthony Celi ([Google Scholar](https://scholar.google.com/citations?user=kssA7YwAAAAJ&hl=en))
-- Maximin Lange ([mlange2@mit.edu](mailto:mlange2@mit.edu))
 - Sebastián Andrés Cajas Ordoñez ([sebasmos@mit.edu](mailto:sebasmos@mit.edu))
+- Maximin Lange ([mlange2@mit.edu](mailto:mlange2@mit.edu))
+- Leo Anthony Celi ([Google Scholar](https://scholar.google.com/citations?user=kssA7YwAAAAJ&hl=en))
 
 ---
 
