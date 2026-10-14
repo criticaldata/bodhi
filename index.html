@@ -17,9 +17,9 @@
     <meta name="twitter:title" content="BODHI | The courage to ask before answering">
     <meta name="twitter:description" content="An engineering framework for curiosity driven and humble AI in clinical decision support.">
     <meta name="twitter:image" content="https://criticaldata.github.io/bodhi/assets/social-card.png">
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=red2">
+    <link rel="icon" type="image/png" href="assets/favicon.png?v=red2">
+    <link rel="apple-touch-icon" href="assets/favicon.png?v=red2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -123,6 +123,14 @@ img { max-width: 100%; display: block; }
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+.navbar::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 3px;
+    background: #A31F34;
+}
+
 .navbar.scrolled {
     border-bottom-color: var(--c-border);
     box-shadow: 0 1px 12px rgba(34,27,20,0.04);
@@ -146,7 +154,25 @@ img { max-width: 100%; display: block; }
     color: var(--c-ink);
 }
 
-.logo-icon { height: 34px; width: auto; }
+.logo-icon { height: 54px; width: auto; margin: -4px 0; }
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+}
+
+.nav-mit {
+    display: flex;
+    align-items: center;
+    padding-left: 1.1rem;
+    border-left: 1px solid var(--c-border);
+    transition: opacity 0.2s ease;
+}
+
+.nav-mit:hover { opacity: 0.8; }
+
+.nav-mit-logo { display: block; height: 32px; width: auto; }
 
 .brand-text {
     font-family: var(--f-display);
@@ -244,6 +270,29 @@ img { max-width: 100%; display: block; }
     flex: 1;
     min-width: 0;
 }
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.25rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #A31F34;
+    text-decoration: none;
+}
+
+.hero-eyebrow::before {
+    content: '';
+    width: 56px;
+    height: 4px;
+    background: #A31F34;
+    transition: width 0.4s var(--ease-out);
+}
+
+.hero-eyebrow:hover::before { width: 80px; }
 
 .hero-title {
     font-family: var(--f-display);
@@ -1299,6 +1348,27 @@ img { max-width: 100%; display: block; }
 
 .footer .container { position: relative; z-index: 1; }
 
+.footer-mit {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding: 0.5rem 0 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-mit-logo {
+    display: block;
+    height: 56px;
+    width: auto;
+    box-sizing: content-box;
+    padding: 14px 22px;
+    background: #ffffff;
+    border-radius: var(--r-md);
+    transition: transform 0.3s var(--ease-out);
+}
+
+.footer-mit:hover .footer-mit-logo { transform: translateY(-2px); }
+
 .footer-content {
     display: flex;
     justify-content: space-between;
@@ -1315,9 +1385,8 @@ img { max-width: 100%; display: block; }
 }
 
 .footer-logo {
-    height: 32px;
+    height: 56px;
     width: auto;
-    opacity: 0.85;
 }
 
 .footer-title {
@@ -1401,6 +1470,11 @@ img { max-width: 100%; display: block; }
     .team-grid { grid-template-columns: 1fr; }
 
     .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .nav-left { gap: 0.8rem; }
+    .nav-mit { padding-left: 0.8rem; }
+    .nav-mit-logo { height: 26px; }
+    .logo-icon { height: 46px; }
+    .footer-mit-logo { height: 44px; }
     .footer-links { flex-direction: column; gap: 0.75rem; }
 
     .hero-buttons { flex-direction: column; }
@@ -1641,12 +1715,18 @@ img { max-width: 100%; display: block; }
 
     <div class="scroll-progress" id="scrollProgress"></div>
 
+
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#home" class="nav-brand">
-                <img src="assets/bodhi-mark.svg" alt="BODHI Logo" class="logo-icon">
-                <span class="brand-text">BODHI</span>
-            </a>
+            <div class="nav-left">
+                <a href="#home" class="nav-brand">
+                    <img src="assets/bodhi-mark.svg?v=red2" alt="BODHI Logo" class="logo-icon">
+                    <span class="brand-text">BODHI</span>
+                </a>
+                <a href="https://criticaldata.mit.edu/" class="nav-mit" target="_blank" rel="noopener">
+                    <img src="assets/logos/logo.svg" alt="MIT Critical Data" class="nav-mit-logo">
+                </a>
+            </div>
             <div class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#framework" class="nav-link">Framework</a>
@@ -1671,6 +1751,7 @@ img { max-width: 100%; display: block; }
             <div class="container">
                 <div class="hero-inner">
                     <div class="hero-content">
+                        <a class="hero-eyebrow" href="https://criticaldata.mit.edu/" target="_blank" rel="noopener">MIT Critical Data</a>
                         <h1 class="hero-title">
                             <span class="title-letters"><span class="letter" style="--i:0">B</span><span class="letter" style="--i:1">O</span><span class="letter" style="--i:2">D</span><span class="letter" style="--i:3">H</span><span class="letter" style="--i:4">I</span></span>
                             <span class="title-word">Framework</span>
@@ -2273,9 +2354,12 @@ img { max-width: 100%; display: block; }
 
     <footer class="footer">
         <div class="container">
+            <a href="https://criticaldata.mit.edu/" class="footer-mit" target="_blank" rel="noopener">
+                <img src="assets/logos/logo.svg" alt="MIT Critical Data" class="footer-mit-logo">
+            </a>
             <div class="footer-content">
                 <div class="footer-brand">
-                    <img src="assets/bodhi-mark.svg" alt="BODHI Logo" class="footer-logo">
+                    <img src="assets/bodhi-mark.svg?v=red2" alt="BODHI Logo" class="footer-logo">
                     <div>
                         <div class="footer-title">BODHI Framework</div>
                         <div class="footer-subtitle">MIT Critical Data &amp; Collaborating Institutions</div>
